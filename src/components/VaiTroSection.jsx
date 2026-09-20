@@ -10,11 +10,12 @@ const POINTS = [
     color: '#1565c0',
     bg: 'rgba(21,101,192,0.08)',
     border: 'rgba(21,101,192,0.22)',
-    label: 'Hình Ảnh Ẩn Dụ "Con Thuyền"',
+    label: '1.1. Hình Ảnh Ẩn Dụ "Con Thuyền"',
     items: [
-      'Con thuyền → cách mạng, hành trình giành độc lập',
-      'Người cầm lái → Đảng dẫn dắt con thuyền đúng hướng',
-      'Bàn chỉ nam → chủ nghĩa Mác–Lênin, không lạc hướng',
+      'Con thuyền → Cách mạng, là dân tộc Việt Nam trên hành trình giành độc lập và đi lên CNXH',
+      'Người cầm lái → Đảng dẫn dắt con thuyền đúng hướng, vượt qua sóng gió',
+      'Bàn chỉ nam → Chủ nghĩa Mác–Lênin, giúp Đảng luôn kiên định, không lạc hướng',
+      '→ Cách mạng muốn thành công phải có Đảng vững vàng lãnh đạo (tất yếu lịch sử)',
     ],
     quote: '"Đảng có vững, cách mệnh mới thành công, cũng như người cầm lái có vững thuyền mới chạy."',
     src: 'Đường cách mệnh, 1927',
@@ -24,28 +25,30 @@ const POINTS = [
     color: '#b71c1c',
     bg: 'rgba(183,28,28,0.07)',
     border: 'rgba(183,28,28,0.22)',
-    label: 'Sự Ra Đời Tất Yếu Của Đảng',
+    label: '1.2. Sự Ra Đời Tất Yếu Của Đảng',
     items: [
-      'Theo Mác–Lênin: Đảng = CNML + phong trào công nhân',
-      'Hồ Chí Minh bổ sung: + phong trào yêu nước Việt Nam',
-      'Đấu tranh giai cấp gắn chặt đấu tranh dân tộc (xã hội thuộc địa)',
+      'Theo Mác–Lênin: Đảng = CN Mác–Lênin + Phong trào công nhân',
+      'Hồ Chí Minh bổ sung: + Phong trào yêu nước Việt Nam',
+      'Lý do: Xã hội thuộc địa phong kiến, mọi tầng lớp đều mâu thuẫn với đế quốc; đấu tranh giai cấp gắn chặt với đấu tranh dân tộc',
+      '→ Đảng ra đời năm 1930 đáp ứng trọn vẹn nhu cầu tất yếu của xã hội Việt Nam',
     ],
-    quote: 'Đảng ra đời năm 1930 là nhu cầu tất yếu của xã hội Việt Nam.',
-    src: '',
+    quote: 'Đảng ra đời là bước ngoặt quyết định chấm dứt cuộc khủng hoảng đường lối cứu nước.',
+    src: 'Quy luật sáng tạo của Hồ Chí Minh',
   },
   {
     icon: Compass,
     color: '#e65100',
     bg: 'rgba(230,81,0,0.07)',
     border: 'rgba(230,81,0,0.22)',
-    label: 'Vai Trò Lãnh Đạo',
+    label: '1.3. Vai Trò Lãnh Đạo & Thực Tiễn',
     items: [
-      'Đảng được toàn dân tộc trao sứ mệnh lãnh đạo cách mạng',
-      'Đội tiên phong của giai cấp công nhân và nhân dân lao động',
-      '"Ngoài lợi ích của dân tộc, của Tổ quốc, Đảng không có lợi ích gì khác."',
+      'Đảng được toàn dân tộc trao sứ mệnh lãnh đạo; là đội tiên phong của giai cấp công nhân & nhân dân',
+      'Quyền lãnh đạo dựa trên sự ủy thác của nhân dân: Đảng không có lợi ích riêng ngoài lợi ích của dân tộc',
+      'Minh chứng 1945: Cách mạng Tháng Tám giành chính quyền toàn quốc trong 2 tuần, lập nên Nước VNDCCH',
+      'Thời kỳ Đổi mới: Lãnh đạo chuyển đổi kinh tế, đưa Việt Nam từ nước nghèo thành nước thu nhập trung bình và hội nhập sâu rộng',
     ],
-    quote: 'Cách mạng Tháng Tám 1945: toàn quốc vùng lên trong hai tuần, lập nên Nước Việt Nam DCCH.',
-    src: 'Minh chứng thực tiễn',
+    quote: '"Ngoài lợi ích của dân tộc, của Tổ quốc, thì Đảng không có lợi ích gì khác."',
+    src: 'Sửa đổi lối làm việc, 1947',
   },
 ];
 
@@ -123,7 +126,7 @@ export default function VaiTroSection() {
           transition={{ duration: 0.6 }}
           style={{ marginBottom: '3.5rem' }}
         >
-          <span className="section-label">Phần 1</span>
+          <span className="section-label">Phần 1 · Phúc</span>
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', color: 'var(--red-deep)', marginTop: '0.5rem' }}>
             Tính Tất Yếu & Vai Trò Lãnh Đạo Của Đảng
           </h2>

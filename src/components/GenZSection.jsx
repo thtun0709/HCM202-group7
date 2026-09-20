@@ -145,7 +145,7 @@ export default function GenZSection() {
           style={{ textAlign: 'center', marginBottom: '4rem' }}
         >
           <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gold)' }}>
-            Phần 3
+            Phần 3 · Tùng
           </span>
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', color: '#FFFFFF', marginTop: '0.5rem' }}>
             Đảng &{' '}
@@ -154,9 +154,21 @@ export default function GenZSection() {
             </span>
           </h2>
           <span className="gold-divider center" />
-          <p style={{ color: 'rgba(255,255,255,0.55)', maxWidth: 580, margin: '0 auto', fontSize: '0.97rem' }}>
-            Gen Z lớn lên trên không gian mạng — chiến trường mới đặt ra thách thức sống còn cho việc giữ vững niềm tin của thế hệ trẻ vào Đảng.
-          </p>
+
+          {/* Dẫn nhập thuyết trình */}
+          <div style={{
+            background: 'rgba(255,255,255,0.04)',
+            border: '1px solid rgba(212,175,55,0.25)',
+            borderRadius: 'var(--radius-md)',
+            padding: '1.25rem 1.5rem',
+            maxWidth: 760,
+            margin: '1.5rem auto 0',
+            textAlign: 'left',
+          }}>
+            <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '0.92rem', fontStyle: 'italic', lineHeight: 1.7 }}>
+              "Nếu các thế hệ đi trước hun đúc niềm tin qua khói lửa chiến tranh, thì Gen Z hôm nay đang lớn lên trong một chiến trường hoàn toàn mới: <strong>Chiến trường không gian mạng</strong>."
+            </p>
+          </div>
         </motion.div>
 
         {/* Thách thức */}

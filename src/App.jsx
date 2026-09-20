@@ -5,6 +5,7 @@ import VaiTroSection from './components/VaiTroSection';
 import TrongSachSection from './components/TrongSachSection';
 import GenZSection from './components/GenZSection';
 import GiaiPhapSection from './components/GiaiPhapSection';
+import TinhHuongSection from './components/TinhHuongSection';
 import KetLuanSection from './components/KetLuanSection';
 import Footer from './components/Footer';
 import AIUsageButton from './components/AIUsageButton';
@@ -19,6 +20,7 @@ function App() {
         <TrongSachSection />
         <GenZSection />
         <GiaiPhapSection />
+        <TinhHuongSection />
         <KetLuanSection />
       </main>
       <Footer />

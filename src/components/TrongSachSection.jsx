@@ -11,28 +11,34 @@ const PRINCIPLES = [
     color: '#1a237e',
     gradient: 'linear-gradient(135deg, #1a237e 0%, #283593 100%)',
     title: 'Bản Chất "Đảng Là Đạo Đức, Là Văn Minh"',
-    subtitle: 'Mục đích và đường lối vì toàn dân tộc',
+    subtitle: 'Mục đích tối thượng & Yêu cầu xây dựng Đảng',
     keyPoints: [
-      'Mục đích: giải phóng dân tộc, xã hội, giai cấp, con người',
-      'Đội ngũ đảng viên thấm nhuần đạo đức cách mạng, suốt đời phấn đấu vì dân',
-      'Tiêu biểu cho lương tâm, trí tuệ, danh dự của dân tộc',
+      'Mục đích: giải phóng dân tộc, giải phóng xã hội, giai cấp và con người',
+      'Đảng không có mục đích riêng ngoài lợi ích của toàn thể dân tộc',
+      'Đảng viên thấm nhuần đạo đức cách mạng, suốt đời phấn đấu vì dân',
+      'Yêu cầu "Đảng văn minh": Tiêu biểu cho lương tâm, trí tuệ; hoạt động trong khuôn khổ Hiến pháp & pháp luật, không đứng trên dân tộc',
+      '⚠️ Cảnh báo: Đảng không đạo đức, văn minh thì sẽ mất quyền lãnh đạo và thành quả cách mạng sẽ tiêu tan',
     ],
-    detail: '"Đảng ta là đạo đức, là văn minh" — trích từ bài phát biểu tại Lễ kỷ niệm 30 năm Ngày thành lập Đảng (1960). Đảng không có mục đích riêng ngoài lợi ích toàn dân tộc.',
+    detail: '"Đảng ta là đạo đức, là văn minh" (Lễ kỷ niệm 30 năm thành lập Đảng, 1960). Người nhấn mạnh: khi cầm quyền, Đảng càng phải đề cao tính văn minh, tiền phong gương mẫu và chống lại mọi biểu hiện suy thoái.',
   },
   {
     icon: Gavel,
     number: '02',
     color: '#4527a0',
     gradient: 'linear-gradient(135deg, #4527a0 0%, #6a1b9a 100%)',
-    title: 'Các Nguyên Tắc Hoạt Động Của Đảng',
+    title: '8 Nguyên Tắc Sinh Hoạt Của Đảng',
     subtitle: 'Nền tảng vững chắc của tổ chức cách mạng',
     keyPoints: [
-      'Lấy chủ nghĩa Mác–Lênin làm nền tảng tư tưởng',
-      'Tập trung dân chủ; tự phê bình và phê bình',
-      'Kỷ luật nghiêm minh, tự giác; thường xuyên tự chỉnh đốn',
-      'Liên hệ mật thiết với nhân dân; đoàn kết quốc tế',
+      '1. Lấy chủ nghĩa Mác – Lênin làm nền tảng tư tưởng và kim chỉ nam',
+      '2. Tập trung dân chủ (nguyên tắc tổ chức cơ bản)',
+      '3. Tự phê bình và phê bình (thang thuốc hay nhất)',
+      '4. Kỷ luật nghiêm minh, tự giác',
+      '5. Thường xuyên tự đổi mới, tự chỉnh đốn',
+      '6. Đoàn kết, thống nhất trong Đảng',
+      '7. Mối quan hệ mật thiết với nhân dân (dân là gốc)',
+      '8. Đoàn kết quốc tế trong sáng, vì hòa bình và hữu nghị',
     ],
-    detail: 'Bảy nguyên tắc cốt lõi tạo nên "cột sống" của một Đảng cầm quyền: từ nền tảng lý luận đến quan hệ với nhân dân và thế giới.',
+    detail: 'Tám nguyên tắc cốt lõi theo tư tưởng Hồ Chí Minh tạo nên "cột sống" kỷ luật và sức mạnh chiến đấu của một Đảng cách mạng cầm quyền chân chính.',
   },
   {
     icon: BookOpenCheck,
@@ -40,13 +46,15 @@ const PRINCIPLES = [
     color: '#b71c1c',
     gradient: 'linear-gradient(135deg, #8B0000 0%, #c62828 100%)',
     title: 'Xây Dựng Đội Ngũ Cán Bộ, Đảng Viên',
-    subtitle: '"Cán bộ là gốc của mọi công việc"',
+    subtitle: '"Cán bộ là cái gốc của mọi công việc"',
     keyPoints: [
-      '"Vừa có đức, vừa có tài" — tuyệt đối trung thành với Đảng',
-      'Gắn bó nhân dân, tiên phong gương mẫu: "đảng viên đi trước, làng nước theo sau"',
-      'Phòng chống tham ô, lãng phí, quan liêu — "giặc nội xâm"',
+      'Cán bộ phải "vừa có đức, vừa có tài" — tuyệt đối trung thành với Đảng',
+      'Đặt lợi ích của Đảng và dân tộc lên trước lợi ích cá nhân; không ngừng học tập nâng cao trình độ',
+      'Tiên phong gương mẫu: "Đảng viên đi trước, làng nước theo sau"',
+      'Chủ động sáng tạo, dám nghĩ dám làm, có tinh thần trách nhiệm cao',
+      'Kiên quyết phòng và chống tham ô, lãng phí, quan liêu — Người gọi là "giặc nội xâm"',
     ],
-    detail: '"Cán bộ là gốc của mọi công việc" — phải hiểu, đào tạo, sử dụng đúng và thường xuyên kiểm tra cán bộ. Năng lực và đạo đức là hai mặt không thể tách rời.',
+    detail: '"Cán bộ là cái gốc của mọi công việc" — muôn việc thành công hay thất bại đều do cán bộ tốt hay kém. Vì vậy, công tác cán bộ phải hiểu, đào tạo, sử dụng đúng và thường xuyên kiểm tra.',
   },
   {
     icon: Users2,
@@ -54,13 +62,13 @@ const PRINCIPLES = [
     color: '#1b5e20',
     gradient: 'linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%)',
     title: 'Minh Chứng Thực Tiễn Hiện Nay',
-    subtitle: 'Đảng hành động, nhân dân tin tưởng',
+    subtitle: 'Đảng hành động, nhân dân đặt trọn niềm tin',
     keyPoints: [
-      'COVID-19 & bão Yagi 2024: cán bộ, đảng viên tuyến đầu cứu trợ',
-      'Chống tham nhũng: "không có vùng cấm, không có ngoại lệ"',
-      'Nhiều cán bộ cấp cao bị xử lý — minh chứng tính nghiêm minh',
+      'Đảng viên đi trước: Tuyến đầu đại dịch COVID-19 & khắc phục bão lũ lịch sử (bão Yagi 2024), cán bộ xông pha cứu hộ, hỗ trợ dân',
+      'Chống "giặc nội xâm": Đẩy mạnh phòng chống tham nhũng với phương châm "không có vùng cấm, không có ngoại lệ"',
+      'Xử lý nghiêm minh nhiều cán bộ suy thoái, kể cả cấp cao — minh chứng cho quyết tâm tự chỉnh đốn',
     ],
-    detail: 'Thực tiễn chống "giặc nội xâm" những năm gần đây chứng minh Đảng đang nghiêm túc thực hiện tư tưởng Hồ Chí Minh về xây dựng Đảng trong sạch, vững mạnh.',
+    detail: 'Thực tiễn chứng minh: Cuộc chiến phòng chống tham nhũng, tiêu cực không làm chậm bước phát triển mà củng cố vững chắc niềm tin của nhân dân và thế hệ trẻ vào sự trong sạch của Đảng.',
   },
 ];
 
@@ -178,7 +186,7 @@ export default function TrongSachSection() {
           transition={{ duration: 0.6 }}
           style={{ textAlign: 'center', marginBottom: '3.5rem' }}
         >
-          <span className="section-label">Phần 2</span>
+          <span className="section-label">Phần 2 · Thuận</span>
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', color: 'var(--red-deep)', marginTop: '0.5rem' }}>
             Đảng Trong Sạch, Vững Mạnh
           </h2>

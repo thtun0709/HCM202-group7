@@ -1,30 +1,53 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Compass, Anchor, ShieldCheck, Ship } from 'lucide-react';
 
-/* Phần kết: Kết luận & Lời kêu gọi hành động */
+/* Phần kết: Kết luận & Lời kêu gọi hành động cho sinh viên Gen Z */
 
 const KEY_MESSAGES = [
   {
     num: '01',
     color: '#D4AF37',
-    text: 'Sự lãnh đạo của Đảng là tất yếu lịch sử — dựa trên sự ủy thác của nhân dân, không phải đặc quyền.',
+    text: 'Sự lãnh đạo của Đảng là tất yếu lịch sử — dựa trên sự ủy thác thiêng liêng của nhân dân, không phải là đặc quyền tự phong.',
   },
   {
     num: '02',
     color: '#E8C84D',
-    text: '"Đảng là đạo đức, là văn minh" — xây dựng Đảng trong sạch, vững mạnh là điều kiện tiên quyết để giữ vững niềm tin.',
+    text: '"Đảng là đạo đức, là văn minh" — xây dựng Đảng trong sạch, vững mạnh và thường xuyên tự chỉnh đốn là điều kiện sống còn để giữ vững niềm tin.',
   },
   {
     num: '03',
     color: '#F5E8A3',
-    text: 'Gen Z là thế hệ quyết định "kỷ nguyên vươn mình" — vừa là đối tượng phải được lắng nghe, vừa là lực lượng tiên phong.',
+    text: 'Gen Z là thế hệ quyết định "kỷ nguyên vươn mình" — vừa là đối tượng phải được lắng nghe, vừa là lực lượng tiên phong chèo lái đất nước.',
+  },
+];
+
+const GENZ_TAKEAWAYS = [
+  {
+    icon: Compass,
+    color: '#1565c0',
+    title: '1. Tỉnh Táo',
+    desc: 'Kiểm chứng nguồn thông tin cẩn trọng trước khi tin và trước khi bấm chia sẻ. Không để tin giả thao túng tâm lý.',
+  },
+  {
+    icon: Anchor,
+    color: '#b71c1c',
+    title: '2. Đừng Đứng Ngoài',
+    desc: 'Hoài nghi phản biện là tốt, nhưng phải đi kèm hành động: học tập chuyên môn giỏi, làm chủ công nghệ để là "tay chèo" chứ không chỉ là người đứng ngoài bình luận.',
+  },
+  {
+    icon: ShieldCheck,
+    color: '#2e7d32',
+    title: '3. Giữ Mình',
+    desc: 'Cần, Kiệm, Liêm, Chính không phải câu chuyện riêng của cán bộ. Một thế hệ trẻ sống tử tế, trách nhiệm chính là nền móng vững chắc cho bộ máy trong sạch mai sau.',
   },
 ];
 
 export default function KetLuanSection() {
   const headRef = useRef(null);
   const headInView = useInView(headRef, { once: true });
+  const reflectRef = useRef(null);
+  const reflectInView = useInView(reflectRef, { once: true, margin: '-50px' });
   const ctaRef = useRef(null);
   const ctaInView = useInView(ctaRef, { once: true, margin: '-60px' });
 
@@ -43,18 +66,24 @@ export default function KetLuanSection() {
           transition={{ duration: 0.6 }}
           style={{ textAlign: 'center', marginBottom: '3.5rem' }}
         >
-          <span className="section-label">Kết Luận</span>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', color: 'var(--red-deep)', marginTop: '0.5rem' }}>
-            Thông Điệp Kết Luận
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+            <span className="section-label">Tổng Kết</span>
+            <span style={{ color: 'var(--gray-400)', fontSize: '0.75rem' }}>•</span>
+            <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--red-deep)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+              Thông Điệp Đúc Kết
+            </span>
+          </div>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', color: 'var(--red-deep)', marginTop: '0.3rem' }}>
+            Khẳng Định & Hành Động
           </h2>
           <span className="gold-divider center" />
-          <p style={{ color: 'var(--gray-600)', maxWidth: 600, margin: '0 auto', fontSize: '0.97rem' }}>
-            Tư tưởng Hồ Chí Minh về Đảng không phải là lý thuyết sách vở — đó là kim chỉ nam sống động cho thực tiễn hôm nay và mai sau.
+          <p style={{ color: 'var(--gray-600)', maxWidth: 640, margin: '0 auto', fontSize: '0.97rem' }}>
+            Tư tưởng Hồ Chí Minh về Đảng không chỉ dừng ở chỗ Đảng phải lãnh đạo, mà chỉ rõ <strong>Đảng phải như thế nào mới xứng đáng lãnh đạo</strong> — phải là đạo đức, là văn minh, thường xuyên tự chỉnh đốn và gắn bó máu thịt với nhân dân.
           </p>
         </motion.div>
 
         {/* 3 thông điệp chính */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginBottom: '4rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginBottom: '3.5rem' }}>
           {KEY_MESSAGES.map((msg, i) => (
             <motion.div
               key={i}
@@ -92,6 +121,80 @@ export default function KetLuanSection() {
               </p>
             </motion.div>
           ))}
+        </div>
+
+        {/* Khối suy ngẫm: Con thuyền qua vùng biển mới */}
+        <motion.div
+          ref={reflectRef}
+          initial={{ opacity: 0, y: 30 }}
+          animate={reflectInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          style={{
+            background: 'linear-gradient(135deg, rgba(139,0,0,0.04) 0%, rgba(212,175,55,0.08) 100%)',
+            border: '1.5px solid rgba(212,175,55,0.3)',
+            borderRadius: 'var(--radius-xl)',
+            padding: 'clamp(1.75rem, 4vw, 2.5rem)',
+            marginBottom: '4rem',
+            position: 'relative',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1rem' }}>
+            <Ship size={22} color="var(--red-deep)" />
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', color: 'var(--red-deep)', fontWeight: 700 }}>
+              Con Thuyền Việt Nam Đi Qua Vùng Biển Mới
+            </h3>
+          </div>
+          <p style={{ color: 'var(--gray-700)', fontSize: '0.95rem', lineHeight: 1.85, marginBottom: '1rem' }}>
+            Gần một thế kỷ sau <em>Đường cách mệnh</em>, con thuyền Việt Nam đang đi qua một vùng biển mới: chuyển đổi số, trí tuệ nhân tạo và cả những cơn sóng thông tin thật giả lẫn lộn. Sóng đã khác, nhưng nguyên lý thì không đổi — <strong>thuyền vẫn cần một người cầm lái vững vàng, và người cầm lái vẫn cần trọn vẹn niềm tin của những người trên thuyền</strong>.
+          </p>
+          <p style={{ color: 'var(--gray-700)', fontSize: '0.95rem', lineHeight: 1.85, fontStyle: 'italic' }}>
+            Niềm tin ấy không đến từ khẩu hiệu, mà đến từ hai phía cùng hành động: Đảng tiếp tục minh bạch, tự chỉnh đốn và biết lắng nghe người trẻ; còn chúng ta giữ một cái đầu tỉnh táo trước mỗi thông tin và một trái tim không thờ ơ với đất nước. Bởi vì <strong>giữ vững con thuyền không chỉ là việc của người cầm lái, mà là trách nhiệm của tất cả những người đang ngồi trên thuyền.</strong>
+          </p>
+        </motion.div>
+
+        {/* 3 Điều đúc kết cho Gen Z */}
+        <div style={{ marginBottom: '4.5rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+            <span className="section-label">Thế Hệ Số Hành Động</span>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.3rem, 3vw, 1.85rem)', color: 'var(--gray-800)', marginTop: '0.3rem' }}>
+              Ba Điều Rút Ra Cho Sinh Viên Gen Z
+            </h3>
+            <span className="gold-divider center" />
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+            {GENZ_TAKEAWAYS.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={i}
+                  style={{
+                    background: '#FFFFFF',
+                    border: '1.5px solid var(--gray-200)',
+                    borderRadius: 'var(--radius-lg)',
+                    padding: '1.75rem',
+                    boxShadow: 'var(--shadow-card)',
+                    borderTop: `4px solid ${item.color}`,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.75rem',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    <div style={{ width: 40, height: 40, borderRadius: 12, background: `${item.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Icon size={20} color={item.color} />
+                    </div>
+                    <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', fontWeight: 700, color: item.color }}>
+                      {item.title}
+                    </h4>
+                  </div>
+                  <p style={{ fontSize: '0.88rem', color: 'var(--gray-600)', lineHeight: 1.75 }}>
+                    {item.desc}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         {/* CTA Banner */}
@@ -160,17 +263,17 @@ export default function KetLuanSection() {
               margin: '0 auto 0.5rem',
               lineHeight: 1.75,
             }}>
-              — Hồ Chí Minh —
+              — Chủ tịch Hồ Chí Minh —
             </p>
 
             <p style={{
               color: 'rgba(255,255,255,0.65)',
               fontSize: 'clamp(0.85rem, 1.8vw, 0.97rem)',
-              maxWidth: 600,
+              maxWidth: 620,
               margin: '0.5rem auto 2rem',
               lineHeight: 1.75,
             }}>
-              Khi được đồng hành và đặt trọn niềm tin, thế hệ số sẽ là lá chắn vững chắc nhất cho tương lai của đất nước.
+              Khi được đồng hành và đặt trọn niềm tin, thế hệ số sẽ là lá chắn vững chắc nhất và là những tay chèo kiên cường cho tương lai của Tổ quốc.
             </p>
 
             <a

@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Cpu, Megaphone, Heart, GraduationCap, ArrowRight } from 'lucide-react';
+import { Cpu, Megaphone, Heart, GraduationCap, Users, Sparkles } from 'lucide-react';
 
 /* Phần 4: Giải pháp thích ứng của Đảng & Khơi dậy niềm tin thanh niên */
 
@@ -10,26 +10,26 @@ const PARTY_SOLUTIONS = [
     color: '#1565c0',
     bg: 'rgba(21,101,192,0.07)',
     border: 'rgba(21,101,192,0.2)',
-    label: 'Đổi Mới Tuyên Truyền',
+    label: '4.1. Đổi Mới Tuyên Truyền',
     title: 'Chuyển Đổi Số Công Tác Tư Tưởng',
     items: [
-      'Thay lối tuyên truyền một chiều bằng định dạng số gần gũi Gen Z',
-      'Kiểm chứng thông tin (fact-checking) ngay tại nơi phát sinh',
-      'Lấy số liệu minh bạch, thành tựu thực tế làm công cụ thuyết phục',
+      'Thay lối tuyên truyền một chiều bằng định dạng số gần gũi Gen Z (infographic, podcast, video ngắn)',
+      'Kiểm chứng thông tin (fact-checking) ngay tại nơi phát sinh để phản bác tin xuyên tạc kịp thời',
+      'Lấy thông tin chính thống, số liệu minh bạch và thành tựu thực tế của đất nước làm công cụ thuyết phục',
     ],
-    basis: 'Vận dụng nguyên tắc "thường xuyên tự đổi mới, tự chỉnh đốn" và tinh thần chống bảo thủ, giáo điều.',
+    basis: 'Vận dụng nguyên tắc "thường xuyên tự đổi mới, tự chỉnh đốn" và tinh thần chống bảo thủ, giáo điều của Hồ Chí Minh.',
   },
   {
     icon: Heart,
     color: '#b71c1c',
     bg: 'rgba(183,28,28,0.07)',
     border: 'rgba(183,28,28,0.2)',
-    label: 'Làm Trong Sạch Bộ Máy',
+    label: '4.2. Làm Trong Sạch Bộ Máy',
     title: 'Phòng, Chống "Giặc Nội Xâm"',
     items: [
-      '"Không có vùng cấm, không có ngoại lệ" trong chống tham nhũng',
-      'Kiên quyết xử lý cán bộ suy thoái, củng cố niềm tin nhân dân',
-      'Dũng cảm nhìn thẳng vào sự thật — "tự phê bình và phê bình"',
+      '"Không có vùng cấm, không có ngoại lệ" trong phòng, chống tham nhũng, lãng phí, tiêu cực',
+      'Dũng cảm nhìn thẳng vào sự thật — nghiêm túc "tự phê bình và phê bình"',
+      'Kiên quyết xử lý cán bộ suy thoái để củng cố niềm tin của nhân dân và thế hệ trẻ',
     ],
     basis: 'Vận dụng nguyên tắc "kỷ luật nghiêm minh" và quyết tâm giữ vững bản chất "Đảng là đạo đức, là văn minh".',
   },
@@ -38,14 +38,30 @@ const PARTY_SOLUTIONS = [
     color: '#2e7d32',
     bg: 'rgba(46,125,50,0.07)',
     border: 'rgba(46,125,50,0.2)',
-    label: 'Đồng Hành Thanh Niên',
-    title: 'Trao Quyền & Lắng Nghe',
+    label: '4.3. Đồng Hành Thanh Niên',
+    title: 'Trao Quyền & Lắng Nghe Người Trẻ',
     items: [
-      'Chuyển từ "áp đặt" sang "đối thoại và lắng nghe"',
-      'Hỗ trợ khởi nghiệp, phát triển AI, vi mạch bán dẫn — "đường băng" cho trẻ',
-      'Nhân rộng gương đảng viên trẻ tiên phong, dấn thân',
+      'Khắc ghi lời dạy Bác: "Nước nhà thịnh hay suy, yếu hay mạnh một phần lớn là do các thanh niên"',
+      'Chuyển từ "áp đặt" sang "đối thoại và lắng nghe", giải đáp thẳng thắn các băn khoăn của người trẻ',
+      'Ban hành chính sách hỗ trợ khởi nghiệp, phát triển công nghệ cao (bán dẫn, AI) — tạo "đường băng" cống hiến',
+      'Nhân rộng các tấm gương đảng viên trẻ tiên phong, dấn thân để truyền cảm hứng sống đẹp',
     ],
-    basis: 'Quán triệt tư tưởng "dân là gốc", nguyên tắc "liên hệ mật thiết với nhân dân" của Hồ Chí Minh.',
+    basis: 'Quán triệt tư tưởng "dân là gốc" và nguyên tắc "liên hệ mật thiết với nhân dân" của Hồ Chí Minh.',
+  },
+];
+
+const REAL_EXAMPLES = [
+  {
+    icon: Users,
+    color: '#0288d1',
+    title: 'Đối Thoại & Hỗ Trợ Người Trẻ',
+    desc: 'Hội nghị đối thoại thường niên giữa Thủ tướng Chính phủ với thanh niên; Chiến lược quốc gia về phát triển nguồn nhân lực công nghệ bán dẫn và Trí tuệ nhân tạo (AI) mở ra hàng ngàn cơ hội cho sinh viên công nghệ.',
+  },
+  {
+    icon: Sparkles,
+    color: '#c2185b',
+    title: 'Đổi Mới Truyền Thông Chính Thống',
+    desc: 'Các kênh truyền thông của Đoàn, Hội và cơ quan báo chí chính thống (VTV Digital, Thành đoàn, Thông tin Chính phủ) chuyển mình mạnh mẽ sang TikTok, Podcast, nhận được hàng triệu lượt tương tác tích cực từ sinh viên.',
   },
 ];
 
@@ -184,7 +200,7 @@ export default function GiaiPhapSection() {
           transition={{ duration: 0.6 }}
           style={{ marginBottom: '3.5rem' }}
         >
-          <span className="section-label">Phần 4</span>
+          <span className="section-label">Phần 4 · Huy</span>
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', color: 'var(--red-deep)', marginTop: '0.5rem' }}>
             Giải Pháp Thích Ứng & Khơi Dậy Niềm Tin Thanh Niên
           </h2>
@@ -218,10 +234,58 @@ export default function GiaiPhapSection() {
           </p>
         </motion.div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.25rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.25rem', marginBottom: '3.5rem' }}>
           {YOUTH_DUTIES.map((item, i) => (
             <YouthCard key={i} item={item} index={i} />
           ))}
+        </div>
+
+        {/* Minh Chứng Thực Tiễn */}
+        <div style={{
+          background: 'var(--gray-50)',
+          border: '1px solid var(--gray-200)',
+          borderRadius: 'var(--radius-xl)',
+          padding: '2.25rem',
+        }}>
+          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+            <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--red-deep)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+              Thực Tiễn Sống Động
+            </span>
+            <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', color: 'var(--gray-800)', marginTop: '0.2rem' }}>
+              Ví Dụ Thực Tế Về Sự Đồng Hành & Đổi Mới
+            </h4>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+            {REAL_EXAMPLES.map((ex, i) => {
+              const Icon = ex.icon;
+              return (
+                <div
+                  key={i}
+                  style={{
+                    background: '#FFFFFF',
+                    border: '1.5px solid var(--gray-200)',
+                    borderRadius: 'var(--radius-lg)',
+                    padding: '1.5rem',
+                    borderLeft: `4px solid ${ex.color}`,
+                    boxShadow: 'var(--shadow-card)',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+                    <div style={{ width: 38, height: 38, borderRadius: 10, background: `${ex.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Icon size={20} color={ex.color} />
+                    </div>
+                    <h5 style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 700, color: 'var(--gray-800)' }}>
+                      {ex.title}
+                    </h5>
+                  </div>
+                  <p style={{ fontSize: '0.86rem', color: 'var(--gray-600)', lineHeight: 1.7 }}>
+                    {ex.desc}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
 

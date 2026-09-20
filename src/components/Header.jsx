@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { href: '#trong-sach',  label: 'Đảng Trong Sạch' },
   { href: '#gen-z',       label: 'Đảng & Gen Z' },
   { href: '#giai-phap',   label: 'Giải Pháp' },
+  { href: '#tinh-huong',  label: 'Tình Huống' },
   { href: '#ket-luan',    label: 'Kết Luận' },
 ];
 
