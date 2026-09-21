@@ -12,10 +12,10 @@ const POINTS = [
     border: 'rgba(21,101,192,0.22)',
     label: '1.1. Hình Ảnh Ẩn Dụ "Con Thuyền"',
     items: [
-      'Con thuyền → Cách mạng, là dân tộc Việt Nam trên hành trình giành độc lập và đi lên CNXH',
-      'Người cầm lái → Đảng dẫn dắt con thuyền đúng hướng, vượt qua sóng gió',
-      'Bàn chỉ nam → Chủ nghĩa Mác–Lênin, giúp Đảng luôn kiên định, không lạc hướng',
-      '→ Cách mạng muốn thành công phải có Đảng vững vàng lãnh đạo (tất yếu lịch sử)',
+      'Con thuyền → Cách mạng, là dân tộc Việt Nam trên hành trình giành độc lập và xây dựng CNXH',
+      'Người cầm lái → Đảng dẫn dắt con thuyền đúng hướng, kiên định vượt qua mọi sóng gió bão táp',
+      'Bàn chỉ nam → Chủ nghĩa Mác–Lênin làm kim chỉ nam, giúp Đảng luôn kiên định, không lạc hướng',
+      'Quy luật tất yếu → Cách mạng muốn thành công tất yếu phải có Đảng vững vàng lãnh đạo',
     ],
     quote: '"Đảng có vững, cách mệnh mới thành công, cũng như người cầm lái có vững thuyền mới chạy."',
     src: 'Đường cách mệnh, 1927',
@@ -27,10 +27,10 @@ const POINTS = [
     border: 'rgba(183,28,28,0.22)',
     label: '1.2. Sự Ra Đời Tất Yếu Của Đảng',
     items: [
-      'Theo Mác–Lênin: Đảng = CN Mác–Lênin + Phong trào công nhân',
-      'Hồ Chí Minh bổ sung: + Phong trào yêu nước Việt Nam',
-      'Lý do: Xã hội thuộc địa phong kiến, mọi tầng lớp đều mâu thuẫn với đế quốc; đấu tranh giai cấp gắn chặt với đấu tranh dân tộc',
-      '→ Đảng ra đời năm 1930 đáp ứng trọn vẹn nhu cầu tất yếu của xã hội Việt Nam',
+      'Quy luật chung (Mác–Lênin) → Đảng = CN Mác–Lênin kết hợp chặt chẽ với Phong trào công nhân',
+      'Sáng tạo Hồ Chí Minh → Bổ sung thêm Phong trào yêu nước của toàn thể dân tộc Việt Nam',
+      'Bối cảnh xã hội thuộc địa → Mọi tầng lớp đều mâu thuẫn đế quốc; giải phóng dân tộc gắn với giai cấp',
+      'Tất yếu lịch sử → Đảng ra đời năm 1930 đáp ứng trọn vẹn đòi hỏi sống còn của cách mạng Việt Nam',
     ],
     quote: 'Đảng ra đời là bước ngoặt quyết định chấm dứt cuộc khủng hoảng đường lối cứu nước.',
     src: 'Quy luật sáng tạo của Hồ Chí Minh',
@@ -42,10 +42,10 @@ const POINTS = [
     border: 'rgba(230,81,0,0.22)',
     label: '1.3. Vai Trò Lãnh Đạo & Thực Tiễn',
     items: [
-      'Đảng được toàn dân tộc trao sứ mệnh lãnh đạo; là đội tiên phong của giai cấp công nhân & nhân dân',
-      'Quyền lãnh đạo dựa trên sự ủy thác của nhân dân: Đảng không có lợi ích riêng ngoài lợi ích của dân tộc',
-      'Minh chứng 1945: Cách mạng Tháng Tám giành chính quyền toàn quốc trong 2 tuần, lập nên Nước VNDCCH',
-      'Thời kỳ Đổi mới: Lãnh đạo chuyển đổi kinh tế, đưa Việt Nam từ nước nghèo thành nước thu nhập trung bình và hội nhập sâu rộng',
+      'Sứ mệnh tiên phong → Đảng được nhân dân trao quyền lãnh đạo, là đội tiên phong của dân tộc',
+      'Bản chất vì dân → Quyền lãnh đạo do nhân dân ủy thác, Đảng không có lợi ích riêng ngoài lợi ích dân',
+      'Minh chứng 1945 → Cách mạng Tháng Tám giành chính quyền toàn quốc trong 2 tuần, lập nên VNDCCH',
+      'Kỳ tích Đổi mới → Lãnh đạo chuyển đổi kinh tế, đưa Việt Nam hội nhập sâu rộng và phát triển mạnh mẽ',
     ],
     quote: '"Ngoài lợi ích của dân tộc, của Tổ quốc, thì Đảng không có lợi ích gì khác."',
     src: 'Sửa đổi lối làm việc, 1947',
@@ -68,45 +68,94 @@ function PointCard({ item, index }) {
         background: item.bg,
         border: `1.5px solid ${item.border}`,
         borderRadius: 'var(--radius-lg)',
-        padding: '2rem',
+        padding: '1.75rem',
         display: 'flex',
         flexDirection: 'column',
-        gap: '1rem',
+        height: '100%',
         cursor: 'default',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+      {/* ── Tiêu đề card: cố định min-height để nằm ngang hàng khít nhau ── */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.75rem',
+        minHeight: '3.25rem',
+      }}>
         <div style={{
-          width: 44, height: 44,
+          width: 44,
+          height: 44,
           borderRadius: 12,
           background: item.color,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           flexShrink: 0,
         }}>
           <Icon size={22} color="white" strokeWidth={1.8} />
         </div>
-        <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.05rem', fontWeight: 700, color: 'var(--gray-800)', lineHeight: 1.2 }}>
+        <div style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: '1.05rem',
+          fontWeight: 700,
+          color: 'var(--gray-800)',
+          lineHeight: 1.25,
+        }}>
           {item.label}
         </div>
       </div>
 
-      <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+      {/* ── Danh sách 4 gạch đầu dòng: chia đều không gian và ngang hàng nhau ── */}
+      <ul style={{
+        listStyle: 'none',
+        padding: 0,
+        margin: '1.25rem 0',
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        gap: '0.85rem',
+      }}>
         {item.items.map((pt, i) => (
-          <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.87rem', color: 'var(--gray-700)' }}>
+          <li
+            key={i}
+            style={{
+              flex: 1,
+              minHeight: '3.4rem',
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '0.5rem',
+              fontSize: '0.87rem',
+              color: 'var(--gray-700)',
+              lineHeight: 1.55,
+            }}
+          >
             <span style={{ color: item.color, marginTop: 3, flexShrink: 0 }}>▸</span>
-            {pt}
+            <span>{pt}</span>
           </li>
         ))}
       </ul>
 
+      {/* ── Khung Trích dẫn (Quote box): cố định ở đáy và cùng chiều cao ── */}
       <div style={{
+        marginTop: 'auto',
+        minHeight: '102px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
         background: 'rgba(0,0,0,0.04)',
         border: `1px solid ${item.border}`,
         borderRadius: 'var(--radius-sm)',
         padding: '0.85rem 1rem',
       }}>
-        <p style={{ fontSize: '0.83rem', color: 'var(--gray-700)', fontStyle: 'italic', lineHeight: 1.6 }}>{item.quote}</p>
-        {item.src && <p style={{ fontSize: '0.7rem', color: item.color, fontWeight: 600, marginTop: '0.3rem', letterSpacing: '0.06em' }}>— {item.src}</p>}
+        <p style={{ fontSize: '0.83rem', color: 'var(--gray-700)', fontStyle: 'italic', lineHeight: 1.55, margin: 0 }}>
+          {item.quote}
+        </p>
+        {item.src && (
+          <p style={{ fontSize: '0.7rem', color: item.color, fontWeight: 600, marginTop: '0.35rem', letterSpacing: '0.06em', margin: '0.35rem 0 0' }}>
+            — {item.src}
+          </p>
+        )}
       </div>
     </motion.div>
   );
