@@ -25,3 +25,4 @@ dist-ssr
 
 # Scratch / temp files
 read_docx.mjs
+.agents

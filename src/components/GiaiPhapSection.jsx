@@ -1,299 +1,440 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Cpu, Megaphone, Heart, GraduationCap, Users, Sparkles } from 'lucide-react';
+import {
+  Megaphone,
+  ShieldAlert,
+  HeartHandshake,
+  ShieldCheck,
+  Cpu,
+  GraduationCap,
+  Users,
+  Sparkles,
+  CheckCircle2,
+  Flame,
+} from 'lucide-react';
 
-/* Phần 4: Giải pháp thích ứng của Đảng & Khơi dậy niềm tin thanh niên */
+/* Phần 4: Giải pháp thích ứng của Đảng & Khơi dậy niềm tin thanh niên (Thuyết trình: Huy)
+   Bố cục Dual-Track gọn nhẹ, súc tích, trực quan cho trình chiếu */
 
 const PARTY_SOLUTIONS = [
   {
     icon: Megaphone,
     color: '#1565c0',
-    bg: 'rgba(21,101,192,0.07)',
-    border: 'rgba(21,101,192,0.2)',
-    label: '4.1. Đổi Mới Tuyên Truyền',
-    title: 'Chuyển Đổi Số Công Tác Tư Tưởng',
-    items: [
-      'Thay lối tuyên truyền một chiều bằng định dạng số gần gũi Gen Z (infographic, podcast, video ngắn)',
-      'Kiểm chứng thông tin (fact-checking) ngay tại nơi phát sinh để phản bác tin xuyên tạc kịp thời',
-      'Lấy thông tin chính thống, số liệu minh bạch và thành tựu thực tế của đất nước làm công cụ thuyết phục',
+    title: '4.1. Đổi Mới Tuyên Truyền Số',
+    tag: 'Kênh số Gen Z',
+    points: [
+      { label: 'Đa dạng hoá hình thức:', text: 'Dùng infographic, podcast, video ngắn tiếp cận tự nhiên.' },
+      { label: 'Phản bác tin giả:', text: 'Fact-checking chủ động, thuyết phục bằng số liệu minh bạch.' },
     ],
-    basis: 'Vận dụng nguyên tắc "thường xuyên tự đổi mới, tự chỉnh đốn" và tinh thần chống bảo thủ, giáo điều của Hồ Chí Minh.',
+    basis: 'Tự đổi mới, tự chỉnh đốn',
   },
   {
-    icon: Heart,
+    icon: ShieldAlert,
     color: '#b71c1c',
-    bg: 'rgba(183,28,28,0.07)',
-    border: 'rgba(183,28,28,0.2)',
-    label: '4.2. Làm Trong Sạch Bộ Máy',
-    title: 'Phòng, Chống "Giặc Nội Xâm"',
-    items: [
-      '"Không có vùng cấm, không có ngoại lệ" trong phòng, chống tham nhũng, lãng phí, tiêu cực',
-      'Dũng cảm nhìn thẳng vào sự thật — nghiêm túc "tự phê bình và phê bình"',
-      'Kiên quyết xử lý cán bộ suy thoái để củng cố niềm tin của nhân dân và thế hệ trẻ',
+    title: '4.2. Chống "Giặc Nội Xâm"',
+    tag: 'Trong sạch bộ máy',
+    points: [
+      { label: 'Kỷ luật nghiêm minh:', text: '"Không có vùng cấm, không có ngoại lệ", đẩy lùi tiêu cực.' },
+      { label: 'Tự soi, tự sửa:', text: 'Thực hiện tự phê bình và phê bình để giữ vững lòng tin dân.' },
     ],
-    basis: 'Vận dụng nguyên tắc "kỷ luật nghiêm minh" và quyết tâm giữ vững bản chất "Đảng là đạo đức, là văn minh".',
+    basis: 'Đảng là đạo đức, văn minh',
   },
   {
-    icon: Heart,
+    icon: HeartHandshake,
     color: '#2e7d32',
-    bg: 'rgba(46,125,50,0.07)',
-    border: 'rgba(46,125,50,0.2)',
-    label: '4.3. Đồng Hành Thanh Niên',
-    title: 'Trao Quyền & Lắng Nghe Người Trẻ',
-    items: [
-      'Khắc ghi lời dạy Bác: "Nước nhà thịnh hay suy, yếu hay mạnh một phần lớn là do các thanh niên"',
-      'Chuyển từ "áp đặt" sang "đối thoại và lắng nghe", giải đáp thẳng thắn các băn khoăn của người trẻ',
-      'Ban hành chính sách hỗ trợ khởi nghiệp, phát triển công nghệ cao (bán dẫn, AI) — tạo "đường băng" cống hiến',
-      'Nhân rộng các tấm gương đảng viên trẻ tiên phong, dấn thân để truyền cảm hứng sống đẹp',
+    title: '4.3. Đồng Hành & Trao Quyền',
+    tag: 'Tạo bệ phóng',
+    points: [
+      { label: 'Lắng nghe & đối thoại:', text: 'Chuyển từ áp đặt sang cởi mở, giải đáp thẳng thắn băn khoăn.' },
+      { label: 'Mở đường băng phát triển:', text: 'Chính sách hỗ trợ khởi nghiệp, công nghệ AI và bán dẫn.' },
     ],
-    basis: 'Quán triệt tư tưởng "dân là gốc" và nguyên tắc "liên hệ mật thiết với nhân dân" của Hồ Chí Minh.',
+    basis: 'Dân là gốc – Thanh niên là rường cột',
+  },
+];
+
+const YOUTH_SOLUTIONS = [
+  {
+    icon: ShieldCheck,
+    color: '#0288d1',
+    title: '4.4a. "Sức Đề Kháng Số"',
+    tag: 'Bản lĩnh tư duy',
+    points: [
+      { label: 'Đầu lạnh – Tim nóng:', text: 'Tư duy phản biện tỉnh táo, kiên định lòng tự hào dân tộc.' },
+      { label: 'Kiểm chứng nguồn tin:', text: 'Không tin mù quáng, miễn nhiễm trước thông tin độc hại.' },
+    ],
+    basis: 'Dĩ bất biến, ứng vạn biến',
+  },
+  {
+    icon: Flame,
+    color: '#c2185b',
+    title: '4.4b. "Vừa Hồng Vừa Chuyên"',
+    tag: 'Văn hóa mạng',
+    points: [
+      { label: 'Ứng xử có trách nhiệm:', text: 'Tuyệt đối không lan truyền tin giả, không câu view bẩn.' },
+      { label: 'Lan tỏa giá trị tốt:', text: 'Chủ động chia sẻ tri thức, bảo vệ nền tảng tư tưởng trên mạng.' },
+    ],
+    basis: 'Kết hợp Đức và Tài song hành',
+  },
+  {
+    icon: Cpu,
+    color: '#e65100',
+    title: '4.4c. Làm Chủ Công Nghệ & Giữ Mình',
+    tag: 'Hành động cống hiến',
+    points: [
+      { label: 'Tiên phong tri thức:', text: 'Học tập xuất sắc, làm chủ công nghệ mới (AI, bán dẫn).' },
+      { label: 'Rèn luyện lối sống:', text: 'Thực hành Cần, Kiệm, Liêm, Chính ngay trong kỷ nguyên số.' },
+    ],
+    basis: 'Đất nước đàng hoàng hơn, to đẹp hơn',
   },
 ];
 
 const REAL_EXAMPLES = [
   {
     icon: Users,
-    color: '#0288d1',
-    title: 'Đối Thoại & Hỗ Trợ Người Trẻ',
-    desc: 'Hội nghị đối thoại thường niên giữa Thủ tướng Chính phủ với thanh niên; Chiến lược quốc gia về phát triển nguồn nhân lực công nghệ bán dẫn và Trí tuệ nhân tạo (AI) mở ra hàng ngàn cơ hội cho sinh viên công nghệ.',
+    color: '#1565c0',
+    tag: 'Chính sách & Cơ hội',
+    title: 'Đối Thoại Thủ Tướng & Chiến Lược AI, Bán Dẫn',
+    desc: 'Hội nghị đối thoại thường niên tháo gỡ trực tiếp nguyện vọng của thanh niên; ban hành chiến lược quốc gia mở lối đào tạo nhân lực công nghệ cao cho thế hệ trẻ.',
   },
   {
     icon: Sparkles,
     color: '#c2185b',
-    title: 'Đổi Mới Truyền Thông Chính Thống',
-    desc: 'Các kênh truyền thông của Đoàn, Hội và cơ quan báo chí chính thống (VTV Digital, Thành đoàn, Thông tin Chính phủ) chuyển mình mạnh mẽ sang TikTok, Podcast, nhận được hàng triệu lượt tương tác tích cực từ sinh viên.',
+    tag: 'Đổi mới truyền thông',
+    title: 'Kênh Số Chính Thống Chiếm Lĩnh Không Gian Mạng',
+    desc: 'Báo Nhân Dân, VTV Digital, Thành đoàn bùng nổ trên TikTok và Podcast — biến thông tin chính trị thành nội dung thị giác hấp dẫn, tiếp cận hàng triệu bạn trẻ.',
   },
 ];
-
-const YOUTH_DUTIES = [
-  {
-    icon: GraduationCap,
-    color: '#D4AF37',
-    title: 'Rèn Luyện "Sức Đề Kháng Số"',
-    desc: 'Xây dựng "hệ miễn dịch thông tin": đầu lạnh (tư duy phản biện, kiểm chứng) và trái tim nóng (lòng yêu nước, tự hào dân tộc).',
-  },
-  {
-    icon: Cpu,
-    color: '#E8C84D',
-    title: 'Học Tập Chuyên Môn Giỏi',
-    desc: 'Nâng cao kỹ năng công nghệ, thành thạo AI, bán dẫn; giữ gìn đạo đức Cần, Kiệm, Liêm, Chính trong lối sống số hiện đại.',
-  },
-  {
-    icon: Heart,
-    color: '#F5E8A3',
-    title: '"Vừa Hồng, Vừa Chuyên"',
-    desc: 'Không a dua, lan truyền tin đồn; chủ động bảo vệ nền tảng tư tưởng trên không gian số — đây là đạo đức cách mạng mới.',
-  },
-];
-
-function SolutionRow({ item, index }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-60px' });
-
-  const isLeft = index % 2 === 0;
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
-      animate={inView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.65, delay: 0.1 }}
-      style={{
-        display: 'flex',
-        gap: '2rem',
-        alignItems: 'flex-start',
-        flexDirection: isLeft ? 'row' : 'row-reverse',
-        marginBottom: '2rem',
-      }}
-      className="solution-row"
-    >
-      {/* Icon */}
-      <div style={{
-        flexShrink: 0,
-        width: 56, height: 56,
-        borderRadius: 16,
-        background: item.color,
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        boxShadow: `0 8px 24px ${item.color}44`,
-      }}>
-        <item.icon size={26} color="white" strokeWidth={1.8} />
-      </div>
-
-      {/* Content */}
-      <div style={{
-        flex: 1,
-        background: item.bg,
-        border: `1.5px solid ${item.border}`,
-        borderRadius: 'var(--radius-lg)',
-        padding: '1.5rem 1.75rem',
-      }}>
-        <div style={{ fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: item.color, marginBottom: '0.35rem' }}>
-          {item.label}
-        </div>
-        <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', fontWeight: 700, color: 'var(--gray-800)', marginBottom: '0.75rem' }}>
-          {item.title}
-        </h3>
-        <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.4rem', marginBottom: '1rem' }}>
-          {item.items.map((pt, i) => (
-            <li key={i} style={{ display: 'flex', gap: '0.5rem', fontSize: '0.87rem', color: 'var(--gray-700)', alignItems: 'flex-start' }}>
-              <span style={{ color: item.color, marginTop: 3, flexShrink: 0 }}>▸</span>
-              {pt}
-            </li>
-          ))}
-        </ul>
-        <div style={{ background: 'rgba(0,0,0,0.04)', borderRadius: 'var(--radius-sm)', padding: '0.65rem 0.9rem', borderLeft: `3px solid ${item.color}` }}>
-          <p style={{ fontSize: '0.8rem', color: 'var(--gray-600)', fontStyle: 'italic', lineHeight: 1.6 }}>
-            <strong style={{ color: item.color }}>Cơ sở lý luận:</strong> {item.basis}
-          </p>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-function YouthCard({ item, index }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-50px' });
-  const Icon = item.icon;
-
-  return (
-    <motion.div
-      ref={ref}
-      className="hover-card-soft"
-      initial={{ opacity: 0, y: 40 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.12 }}
-      style={{
-        background: '#FFFFFF',
-        border: '1.5px solid var(--gray-200)',
-        borderRadius: 'var(--radius-lg)',
-        padding: '1.75rem',
-        boxShadow: 'var(--shadow-card)',
-        borderTop: `3px solid ${item.color}`,
-      }}
-    >
-      <div style={{ width: 48, height: 48, borderRadius: 14, background: `${item.color}18`, border: `1px solid ${item.color}30`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
-        <Icon size={22} color={item.color} strokeWidth={1.8} />
-      </div>
-      <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 700, color: 'var(--gray-800)', marginBottom: '0.6rem' }}>
-        {item.title}
-      </h3>
-      <p style={{ fontSize: '0.875rem', color: 'var(--gray-600)', lineHeight: 1.7 }}>{item.desc}</p>
-    </motion.div>
-  );
-}
 
 export default function GiaiPhapSection() {
   const headRef = useRef(null);
   const headInView = useInView(headRef, { once: true });
-  const youthRef = useRef(null);
-  const youthInView = useInView(youthRef, { once: true });
 
   return (
-    <section id="giai-phap" style={{ background: 'var(--white)', padding: '6rem 0' }}>
+    <section id="giai-phap" style={{ background: '#FFFFFF', padding: '5rem 0' }}>
       <div className="container">
-        {/* Header */}
+        {/* ── Header Gọn Gàng ── */}
         <motion.div
           ref={headRef}
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           animate={headInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          style={{ marginBottom: '3.5rem' }}
+          transition={{ duration: 0.5 }}
+          style={{ textAlign: 'center', marginBottom: '2.75rem' }}
         >
-          <span className="section-label">Phần 4</span>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', color: 'var(--red-deep)', marginTop: '0.5rem' }}>
-            Giải Pháp Thích Ứng & Khơi Dậy Niềm Tin Thanh Niên
-          </h2>
-          <span className="gold-divider" />
-          <p style={{ color: 'var(--gray-600)', maxWidth: 640, fontSize: '0.97rem' }}>
-            Từ nguyên tắc của Hồ Chí Minh đến hành động thực tiễn — Đảng phải đổi mới, thanh niên phải rèn luyện.
-          </p>
-        </motion.div>
-
-        {/* Solutions */}
-        <div style={{ marginBottom: '4rem' }}>
-          {PARTY_SOLUTIONS.map((item, i) => (
-            <SolutionRow key={i} item={item} index={i} />
-          ))}
-        </div>
-
-        {/* Youth responsibilities */}
-        <motion.div
-          ref={youthRef}
-          initial={{ opacity: 0, y: 30 }}
-          animate={youthInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          style={{ textAlign: 'center', marginBottom: '2.5rem' }}
-        >
-          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.3rem, 3vw, 1.9rem)', color: 'var(--red-deep)' }}>
-            Trách Nhiệm Của Thanh Niên, Sinh Viên
-          </h3>
-          <span className="gold-divider center" />
-          <p style={{ color: 'var(--gray-600)', maxWidth: 500, margin: '0 auto', fontSize: '0.95rem' }}>
-            Vận dụng phương châm <em>"dĩ bất biến, ứng vạn biến"</em> và lời dạy Bác: thanh niên phải <em>"vừa hồng, vừa chuyên"</em>.
-          </p>
-        </motion.div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.25rem', marginBottom: '3.5rem' }}>
-          {YOUTH_DUTIES.map((item, i) => (
-            <YouthCard key={i} item={item} index={i} />
-          ))}
-        </div>
-
-        {/* Minh Chứng Thực Tiễn */}
-        <div style={{
-          background: 'var(--gray-50)',
-          border: '1px solid var(--gray-200)',
-          borderRadius: 'var(--radius-xl)',
-          padding: '2.25rem',
-        }}>
-          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-            <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--red-deep)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-              Thực Tiễn Sống Động
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
+            <span className="section-label">Phần 4 · Huy</span>
+            <span style={{ color: 'var(--gray-400)', fontSize: '0.75rem' }}>•</span>
+            <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--red-deep)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+              Giải Pháp Đồng Bộ
             </span>
-            <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', color: 'var(--gray-800)', marginTop: '0.2rem' }}>
-              Ví Dụ Thực Tế Về Sự Đồng Hành & Đổi Mới
-            </h4>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.6rem, 3.2vw, 2.3rem)', color: 'var(--red-deep)', marginTop: '0.2rem' }}>
+            Giải Pháp Thích Ứng & Khơi Dậy Niềm Tin
+          </h2>
+          <span className="gold-divider center" />
+          <p style={{ color: 'var(--gray-600)', maxWidth: 680, margin: '0 auto', fontSize: '0.94rem', lineHeight: 1.6 }}>
+            Niềm tin được củng cố từ hai phía: <strong>Đảng kiến tạo môi trường</strong> và <strong>Thanh niên rèn luyện, dấn thân</strong>.
+          </p>
+        </motion.div>
+
+        {/* ── BỐ CỤC DUAL-TRACK SONG HÀNH ── */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 440px), 1fr))',
+          gap: '1.75rem',
+          marginBottom: '2.5rem',
+          alignItems: 'stretch',
+        }}>
+
+          {/* ══════════ CỘT TRÁI: VỀ PHÍA ĐẢNG ══════════ */}
+          <motion.div
+            initial={{ opacity: 0, x: -25 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.5 }}
+            style={{
+              background: 'linear-gradient(180deg, rgba(139,0,0,0.02) 0%, rgba(255,255,255,1) 100%)',
+              border: '1.5px solid rgba(139,0,0,0.18)',
+              borderRadius: 'var(--radius-xl)',
+              padding: 'clamp(1.25rem, 2vw, 1.75rem)',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            {/* Header cột Trái */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              paddingBottom: '1rem',
+              borderBottom: '2px solid rgba(139,0,0,0.1)',
+              marginBottom: '1.25rem',
+            }}>
+              <div style={{
+                width: 40, height: 40, borderRadius: 10,
+                background: 'linear-gradient(135deg, var(--red-deep), #b71c1c)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                boxShadow: '0 4px 12px rgba(139,0,0,0.25)',
+              }}>
+                <GraduationCap size={20} color="white" />
+              </div>
+              <div>
+                <span style={{ fontSize: '0.68rem', fontWeight: 700, color: 'var(--red-deep)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                  Trách nhiệm lãnh đạo
+                </span>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.18rem', fontWeight: 700, color: 'var(--gray-900)', margin: 0 }}>
+                  Về Phía Đảng: Đổi Mới & Kiến Tạo
+                </h3>
+              </div>
+            </div>
+
+            {/* 3 Thẻ giải pháp gọn gàng */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', flex: 1 }}>
+              {PARTY_SOLUTIONS.map((item, idx) => {
+                const ItemIcon = item.icon;
+                return (
+                  <motion.div
+                    key={idx}
+                    whileHover={{ y: -2, boxShadow: '0 6px 18px rgba(0,0,0,0.05)' }}
+                    transition={{ duration: 0.2 }}
+                    style={{
+                      background: '#FFFFFF',
+                      border: `1.5px solid ${item.color}22`,
+                      borderLeft: `4px solid ${item.color}`,
+                      borderRadius: 'var(--radius-md)',
+                      padding: '1rem 1.15rem',
+                      boxShadow: '0 2px 6px rgba(0,0,0,0.02)',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                        <div style={{ width: 26, height: 26, borderRadius: 6, background: `${item.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <ItemIcon size={14} color={item.color} />
+                        </div>
+                        <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '0.98rem', fontWeight: 700, color: 'var(--gray-900)', margin: 0 }}>
+                          {item.title}
+                        </h4>
+                      </div>
+                      <span style={{ fontSize: '0.65rem', fontWeight: 700, color: item.color, background: `${item.color}10`, padding: '0.12rem 0.5rem', borderRadius: 100 }}>
+                        {item.tag}
+                      </span>
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', marginBottom: '0.6rem' }}>
+                      {item.points.map((pt, pIdx) => (
+                        <div key={pIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.4rem', fontSize: '0.84rem', color: 'var(--gray-700)', lineHeight: 1.45 }}>
+                          <CheckCircle2 size={14} color={item.color} style={{ flexShrink: 0, marginTop: 2 }} />
+                          <span>
+                            <strong style={{ color: 'var(--gray-900)' }}>{pt.label}</strong> {pt.text}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.35rem',
+                      fontSize: '0.72rem',
+                      fontWeight: 600,
+                      color: item.color,
+                      background: `${item.color}0c`,
+                      padding: '0.18rem 0.55rem',
+                      borderRadius: 6,
+                    }}>
+                      <span>✦ Tư tưởng:</span>
+                      <em style={{ fontStyle: 'normal' }}>"{item.basis}"</em>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
+
+          {/* ══════════ CỘT PHẢI: VỀ PHÍA THANH NIÊN ══════════ */}
+          <motion.div
+            initial={{ opacity: 0, x: 25 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.5 }}
+            style={{
+              background: 'linear-gradient(180deg, rgba(2,136,209,0.02) 0%, rgba(255,255,255,1) 100%)',
+              border: '1.5px solid rgba(2,136,209,0.2)',
+              borderRadius: 'var(--radius-xl)',
+              padding: 'clamp(1.25rem, 2vw, 1.75rem)',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            {/* Header cột Phải */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              paddingBottom: '1rem',
+              borderBottom: '2px solid rgba(2,136,209,0.12)',
+              marginBottom: '1.25rem',
+            }}>
+              <div style={{
+                width: 40, height: 40, borderRadius: 10,
+                background: 'linear-gradient(135deg, #0288d1, #0277bd)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                boxShadow: '0 4px 12px rgba(2,136,209,0.25)',
+              }}>
+                <Sparkles size={20} color="white" />
+              </div>
+              <div>
+                <span style={{ fontSize: '0.68rem', fontWeight: 700, color: '#0288d1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                  Sứ mệnh thế hệ trẻ
+                </span>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.18rem', fontWeight: 700, color: 'var(--gray-900)', margin: 0 }}>
+                  Về Phía Thanh Niên: Rèn Luyện & Dấn Thân
+                </h3>
+              </div>
+            </div>
+
+            {/* 3 Thẻ hành động thanh niên gọn gàng */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', flex: 1 }}>
+              {YOUTH_SOLUTIONS.map((item, idx) => {
+                const ItemIcon = item.icon;
+                return (
+                  <motion.div
+                    key={idx}
+                    whileHover={{ y: -2, boxShadow: '0 6px 18px rgba(0,0,0,0.05)' }}
+                    transition={{ duration: 0.2 }}
+                    style={{
+                      background: '#FFFFFF',
+                      border: `1.5px solid ${item.color}22`,
+                      borderLeft: `4px solid ${item.color}`,
+                      borderRadius: 'var(--radius-md)',
+                      padding: '1rem 1.15rem',
+                      boxShadow: '0 2px 6px rgba(0,0,0,0.02)',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                        <div style={{ width: 26, height: 26, borderRadius: 6, background: `${item.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <ItemIcon size={14} color={item.color} />
+                        </div>
+                        <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '0.98rem', fontWeight: 700, color: 'var(--gray-900)', margin: 0 }}>
+                          {item.title}
+                        </h4>
+                      </div>
+                      <span style={{ fontSize: '0.65rem', fontWeight: 700, color: item.color, background: `${item.color}10`, padding: '0.12rem 0.5rem', borderRadius: 100 }}>
+                        {item.tag}
+                      </span>
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', marginBottom: '0.6rem' }}>
+                      {item.points.map((pt, pIdx) => (
+                        <div key={pIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.4rem', fontSize: '0.84rem', color: 'var(--gray-700)', lineHeight: 1.45 }}>
+                          <CheckCircle2 size={14} color={item.color} style={{ flexShrink: 0, marginTop: 2 }} />
+                          <span>
+                            <strong style={{ color: 'var(--gray-900)' }}>{pt.label}</strong> {pt.text}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.35rem',
+                      fontSize: '0.72rem',
+                      fontWeight: 600,
+                      color: item.color,
+                      background: `${item.color}0c`,
+                      padding: '0.18rem 0.55rem',
+                      borderRadius: 6,
+                    }}>
+                      <span>✦ Tư tưởng:</span>
+                      <em style={{ fontStyle: 'normal' }}>"{item.basis}"</em>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
+        </div>
+
+        {/* ── KHỐI MINH CHỨNG THỰC TIỄN SỐNG ĐỘNG (Gọn nhẹ) ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-30px' }}
+          transition={{ duration: 0.5 }}
+          style={{
+            background: 'linear-gradient(135deg, rgba(21,101,192,0.03) 0%, rgba(194,24,91,0.03) 100%)',
+            border: '1.5px solid rgba(212,175,55,0.25)',
+            borderRadius: 'var(--radius-xl)',
+            padding: 'clamp(1.25rem, 2.5vw, 2rem)',
+            boxShadow: '0 4px 16px rgba(0,0,0,0.03)',
+          }}
+        >
+          <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+            <span style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--red-deep)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+              Minh Chứng Đời Sống
+            </span>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.1rem, 2vw, 1.45rem)', color: 'var(--gray-900)', marginTop: '0.2rem', marginBottom: '0.4rem' }}>
+              Ví Dụ Thực Tế Về Sự Đồng Hành & Chuyển Mình Số
+            </h3>
+            <span className="gold-divider center" style={{ margin: '0.4rem auto 0' }} />
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 360px), 1fr))',
+            gap: '1.25rem',
+          }}>
             {REAL_EXAMPLES.map((ex, i) => {
-              const Icon = ex.icon;
+              const ExIcon = ex.icon;
               return (
-                <div
+                <motion.div
                   key={i}
+                  whileHover={{ y: -2, boxShadow: '0 6px 20px rgba(0,0,0,0.06)' }}
+                  transition={{ duration: 0.2 }}
                   style={{
                     background: '#FFFFFF',
-                    border: '1.5px solid var(--gray-200)',
-                    borderRadius: 'var(--radius-lg)',
-                    padding: '1.5rem',
+                    border: `1.5px solid ${ex.color}25`,
                     borderLeft: `4px solid ${ex.color}`,
-                    boxShadow: 'var(--shadow-card)',
+                    borderRadius: 'var(--radius-lg)',
+                    padding: '1.15rem 1.35rem',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
-                    <div style={{ width: 38, height: 38, borderRadius: 10, background: `${ex.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <Icon size={20} color={ex.color} />
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.6rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <div style={{ width: 32, height: 32, borderRadius: 8, background: `${ex.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <ExIcon size={17} color={ex.color} />
+                        </div>
+                        <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '0.98rem', fontWeight: 700, color: 'var(--gray-900)', margin: 0 }}>
+                          {ex.title}
+                        </h4>
+                      </div>
                     </div>
-                    <h5 style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 700, color: 'var(--gray-800)' }}>
-                      {ex.title}
-                    </h5>
+
+                    <p style={{ fontSize: '0.84rem', color: 'var(--gray-700)', lineHeight: 1.55, margin: 0 }}>
+                      {ex.desc}
+                    </p>
                   </div>
-                  <p style={{ fontSize: '0.86rem', color: 'var(--gray-600)', lineHeight: 1.7 }}>
-                    {ex.desc}
-                  </p>
-                </div>
+
+                  <div style={{ marginTop: '0.85rem', paddingTop: '0.6rem', borderTop: '1px solid var(--gray-100)' }}>
+                    <span style={{ fontSize: '0.68rem', fontWeight: 700, color: ex.color, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                      ✓ {ex.tag}
+                    </span>
+                  </div>
+                </motion.div>
               );
             })}
           </div>
-        </div>
+        </motion.div>
       </div>
-
-      <style>{`
-        @media (max-width: 640px) {
-          .solution-row { flex-direction: column !important; }
-        }
-      `}</style>
     </section>
   );
 }
