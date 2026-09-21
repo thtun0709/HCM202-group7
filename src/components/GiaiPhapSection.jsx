@@ -121,7 +121,7 @@ export default function GiaiPhapSection() {
           style={{ textAlign: 'center', marginBottom: '2.75rem' }}
         >
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
-            <span className="section-label">Phần 4 · Huy</span>
+            <span className="section-label">Phần 4</span>
             <span style={{ color: 'var(--gray-400)', fontSize: '0.75rem' }}>•</span>
             <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--red-deep)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
               Giải Pháp Đồng Bộ

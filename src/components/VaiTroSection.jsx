@@ -1,17 +1,19 @@
 import { useState, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { Anchor, Star, Compass, X, ZoomIn, Quote, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Anchor, Star, Compass, X, ZoomIn, Quote, Sparkles, CheckCircle2, Image as ImageIcon } from 'lucide-react';
 import duongCachMenhImg from '../assets/duong_cach_menh.png';
 import thanhLapDangImg from '../assets/thanh_lap_dang.png';
 import suaDoiLoiLamViecImg from '../assets/sua_doi_loi_lam_viec.jpg';
 
-/* Phần 1: Tính tất yếu và vai trò lãnh đạo của Đảng Cộng sản Việt Nam (Thiết kế dạng hàng ngang trực quan) */
+/* Phần 1: Tính tất yếu và vai trò lãnh đạo của Đảng Cộng sản Việt Nam (Thiết kế dạng thẻ riêng biệt trực quan) */
 
 const POINTS = [
   {
     id: '1.1',
     image: duongCachMenhImg,
     tag: 'Tác phẩm Đường Kách mệnh (1927)',
+    imageTitle: 'Tác phẩm Đường Kách Mệnh (1927)',
+    imageCaption: 'Bảo vật Quốc gia — Tác phẩm đặt nền móng lý luận cho sự ra đời của Đảng và sự nghiệp giải phóng dân tộc.',
     icon: Anchor,
     color: '#1565c0',
     bg: 'rgba(21,101,192,0.03)',
@@ -47,6 +49,8 @@ const POINTS = [
     id: '1.2',
     image: thanhLapDangImg,
     tag: 'Ngày Thành lập Đảng (3/2/1930)',
+    imageTitle: 'Hội nghị Thành lập Đảng (3/2/1930)',
+    imageCaption: 'Tranh tư liệu lịch sử tái hiện Hội nghị hợp nhất các tổ chức cộng sản tại Cửu Long (Hương Cảng, Trung Quốc).',
     icon: Star,
     color: '#b71c1c',
     bg: 'rgba(183,28,28,0.03)',
@@ -71,13 +75,14 @@ const POINTS = [
       title: 'Quy Luật Sáng Tạo Của Hồ Chí Minh',
       icon: Sparkles,
       formula: 'CN Mác–Lênin + PT Công nhân + PT Yêu nước = Đảng CSVN',
-      note: 'Mốc son lịch sử ngày 3/2/1930 — Chấm dứt khủng hoảng đường lối cứu nước',
     },
   },
   {
     id: '1.3',
     image: suaDoiLoiLamViecImg,
     tag: 'Tác phẩm Sửa đổi lối làm việc (1947)',
+    imageTitle: 'Tác phẩm Sửa đổi lối làm việc (1947)',
+    imageCaption: 'Tác phẩm kinh điển của Chủ tịch Hồ Chí Minh về phương thức lãnh đạo và tư cách của người cán bộ cách mạng.',
     icon: Compass,
     color: '#e65100',
     bg: 'rgba(230,81,0,0.03)',
@@ -115,269 +120,345 @@ const POINTS = [
   },
 ];
 
-/* ── Thẻ theo dạng Hàng Ngang (Horizontal Card) ── */
-function HorizontalPointCard({ item, index, onImageClick }) {
+/* ── Thẻ Riêng Cho Hình Ảnh (Chiếm toàn bộ hàng ngang, hiển thị to, rõ nét) ── */
+function ImageCard({ item, index, onImageClick }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-50px' });
+  const inView = useInView(ref, { once: true, margin: '-40px' });
+
+  return (
+    <motion.div
+      ref={ref}
+      className="dedicated-image-card"
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.55, delay: index * 0.1 }}
+      whileHover={{ y: -3, boxShadow: '0 16px 40px rgba(0,0,0,0.08)' }}
+      style={{
+        background: '#FFFFFF',
+        border: `1.5px solid ${item.border}`,
+        borderRadius: 'var(--radius-xl)',
+        padding: 'clamp(1.25rem, 2.5vw, 2rem)',
+        boxShadow: 'var(--shadow-card)',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        transition: 'all 0.3s ease',
+      }}
+    >
+      {/* Header thẻ ảnh */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: '1.25rem',
+        paddingBottom: '0.85rem',
+        borderBottom: `1.5px solid ${item.color}18`,
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{
+            width: 40,
+            height: 40,
+            borderRadius: 10,
+            background: `${item.color}15`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: `0 3px 10px ${item.color}25`,
+          }}>
+            <ImageIcon size={20} color={item.color} />
+          </div>
+          <div>
+            <span style={{ fontSize: '0.72rem', fontWeight: 700, color: item.color, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              Tư Liệu Lịch Sử · Mục {item.id}
+            </span>
+            <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem', fontWeight: 700, color: 'var(--gray-900)', margin: 0 }}>
+              {item.imageTitle}
+            </h4>
+          </div>
+        </div>
+
+        <button
+          onClick={() => onImageClick(item)}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.45rem',
+            padding: '0.45rem 1rem',
+            borderRadius: 100,
+            background: `${item.color}10`,
+            border: `1.5px solid ${item.color}35`,
+            color: item.color,
+            fontSize: '0.78rem',
+            fontWeight: 700,
+            cursor: 'pointer',
+            transition: 'all 0.2s',
+          }}
+          title="Nhấp để xem ảnh phóng to toàn màn hình"
+        >
+          <ZoomIn size={15} />
+          <span>Phóng to toàn màn hình</span>
+        </button>
+      </div>
+
+      {/* Khung hiển thị ảnh SÁNG RÕ, TO TOÀN BỘ, HOÀN TOÀN KHÔNG CÒN VIỀN ĐEN */}
+      <div
+        onClick={() => onImageClick(item)}
+        title="Nhấp để xem ảnh phóng to toàn màn hình"
+        style={{
+          position: 'relative',
+          width: '100%',
+          borderRadius: 'var(--radius-lg)',
+          overflow: 'hidden',
+          cursor: 'pointer',
+          background: 'transparent',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '0.5rem 0',
+        }}
+      >
+        <img
+          src={item.image}
+          alt={item.imageTitle}
+          style={{
+            width: '100%',
+            maxWidth: item.id === '1.3' ? '680px' : '1080px',
+            height: 'auto',
+            maxHeight: '760px',
+            objectFit: 'contain',
+            display: 'block',
+            borderRadius: 'var(--radius-lg)',
+            boxShadow: '0 12px 36px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)',
+            border: '1px solid var(--gray-200)',
+            transition: 'transform 0.35s ease, box-shadow 0.35s ease',
+          }}
+          className="point-card-img"
+        />
+
+        {/* Nút bấm phóng to nổi ở góc ảnh (giao diện sáng trong suốt, không viền đen) */}
+        <div style={{
+          position: 'absolute',
+          bottom: 16,
+          right: 20,
+          background: 'rgba(255,255,255,0.92)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          padding: '6px 14px',
+          borderRadius: 100,
+          fontSize: '0.75rem',
+          fontWeight: 600,
+          color: 'var(--gray-800)',
+          border: '1px solid var(--gray-300)',
+          boxShadow: '0 4px 14px rgba(0,0,0,0.15)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.45rem',
+        }}>
+          <ZoomIn size={14} color="var(--red-deep)" />
+          <span>Bấm để phóng to chi tiết</span>
+        </div>
+      </div>
+
+      {/* Chú thích chân thẻ ảnh */}
+      <div style={{
+        marginTop: '1.1rem',
+        paddingTop: '0.85rem',
+        borderTop: '1px solid var(--gray-100)',
+        fontSize: '0.86rem',
+        color: 'var(--gray-600)',
+        fontStyle: 'italic',
+        lineHeight: 1.6,
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5rem',
+      }}>
+        <span style={{ color: item.color, fontWeight: 700, fontSize: '1rem' }}>✦</span>
+        <span>{item.imageCaption}</span>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ── Thẻ Riêng Cho Nội Dung (Trình bày lý luận và minh chứng) ── */
+function ContentCard({ item, index }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-40px' });
   const Icon = item.icon;
   const BoxIcon = item.bottomBox.icon;
 
   return (
     <motion.div
       ref={ref}
-      className="horizontal-point-card"
-      initial={{ opacity: 0, y: 35 }}
+      className="dedicated-content-card"
+      initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay: index * 0.12 }}
+      transition={{ duration: 0.55, delay: index * 0.1 + 0.05 }}
+      whileHover={{ y: -3, boxShadow: '0 16px 40px rgba(0,0,0,0.08)' }}
       style={{
         background: '#FFFFFF',
         border: `1.5px solid ${item.border}`,
         borderRadius: 'var(--radius-xl)',
         padding: 'clamp(1.5rem, 2.5vw, 2.25rem)',
         boxShadow: 'var(--shadow-card)',
-        marginBottom: '2.5rem',
-        display: 'grid',
-        gridTemplateColumns: 'clamp(380px, 44%, 580px) 1fr',
-        gap: 'clamp(1.75rem, 3.5vw, 3rem)',
-        alignItems: 'stretch',
-      }}
-    >
-      {/* ── Cột Trái: Hình ảnh tư liệu LỚN, RỘNG, HIỂN THỊ RÕ RÀNG ── */}
-      <div
-        onClick={() => onImageClick(item)}
-        title="Nhấp để phóng to toàn màn hình"
-        style={{
-          position: 'relative',
-          width: '100%',
-          minHeight: 320,
-          height: '100%',
-          maxHeight: 420,
-          borderRadius: 'var(--radius-lg)',
-          overflow: 'hidden',
-          cursor: 'pointer',
-          background: 'linear-gradient(145deg, #222222 0%, #121212 55%, #080808 100%)',
-          border: '1px solid rgba(0,0,0,0.25)',
-          boxShadow: 'inset 0 0 25px rgba(0,0,0,0.65), 0 8px 24px rgba(0,0,0,0.12)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '12px',
-        }}
-      >
-        <img
-          src={item.image}
-          alt={item.tag}
-          style={{
-            maxWidth: '100%',
-            maxHeight: '100%',
-            width: 'auto',
-            height: 'auto',
-            objectFit: 'contain',
-            display: 'block',
-            borderRadius: 6,
-            boxShadow: '0 8px 24px rgba(0,0,0,0.45)',
-            transition: 'transform 0.4s ease',
-          }}
-          className="point-card-img"
-        />
-
-        {/* Huy hiệu tag nổi trên ảnh */}
-        <div style={{
-          position: 'absolute',
-          top: 14,
-          left: 14,
-          background: 'rgba(10,5,5,0.82)',
-          backdropFilter: 'blur(8px)',
-          WebkitBackdropFilter: 'blur(8px)',
-          padding: '6px 14px',
-          borderRadius: 100,
-          fontSize: '0.76rem',
-          fontWeight: 700,
-          color: '#FFFFFF',
-          border: `1px solid ${item.color}aa`,
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.45rem',
-          letterSpacing: '0.02em',
-        }}>
-          <span style={{ width: 8, height: 8, borderRadius: '50%', background: item.color }} />
-          {item.tag}
-        </div>
-
-        {/* Nút kính lúp góc phải */}
-        <div style={{
-          position: 'absolute',
-          bottom: 14,
-          right: 14,
-          width: 36,
-          height: 36,
-          borderRadius: '50%',
-          background: 'rgba(0,0,0,0.72)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: '#FFFFFF',
-          backdropFilter: 'blur(6px)',
-          border: '1px solid rgba(255,255,255,0.25)',
-          transition: 'all 0.2s',
-        }}>
-          <ZoomIn size={18} />
-        </div>
-      </div>
-
-      {/* ── Cột Phải: Nội dung chi tiết & Điểm nhấn ── */}
-      <div style={{
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        height: '100%',
-        padding: '0.5rem 0',
-      }}>
-        <div>
-          {/* Tiêu đề & Icon */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.85rem',
-            marginBottom: '1.25rem',
-          }}>
-            <div style={{
-              width: 48,
-              height: 48,
-              borderRadius: 14,
-              background: item.color,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-              boxShadow: `0 6px 18px ${item.color}35`,
-            }}>
-              <Icon size={22} color="white" strokeWidth={1.9} />
-            </div>
-            <div>
-              <div style={{
-                fontSize: '0.74rem',
-                fontWeight: 700,
-                color: item.color,
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em',
-                marginBottom: '0.15rem',
-              }}>
-                Mục {item.id}
-              </div>
-              <h3 style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(1.15rem, 2vw, 1.45rem)',
-                fontWeight: 700,
-                color: 'var(--gray-900)',
-                margin: 0,
-                lineHeight: 1.3,
-              }}>
-                {item.label}
-              </h3>
-            </div>
-          </div>
-
-          {/* Danh sách ý chính */}
-          <ul style={{
-            listStyle: 'none',
-            padding: 0,
-            margin: '0 0 1.5rem 0',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '0.8rem',
-          }}>
-            {item.items.map((pt, i) => (
-              <li
-                key={i}
-                style={{
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: '0.6rem',
-                  fontSize: '0.93rem',
-                  color: 'var(--gray-700)',
-                  lineHeight: 1.65,
-                }}
-              >
-                <span style={{ color: item.color, marginTop: 4, flexShrink: 0, fontWeight: 700, fontSize: '1rem' }}>▸</span>
-                <div>
-                  <strong style={{ color: 'var(--gray-900)' }}>{pt.highlight}</strong> {pt.text}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* ── Khung điểm nhấn ở đáy (Bottom Highlight Box) ── */}
+        transition: 'all 0.3s ease',
+      }}
+    >
+      <div>
+        {/* Tiêu đề & Icon */}
         <div style={{
-          background: item.bg,
-          border: `1.5px solid ${item.border}`,
-          borderLeft: `5px solid ${item.color}`,
-          borderRadius: 'var(--radius-md)',
-          padding: '1rem 1.25rem',
-          boxShadow: '0 2px 10px rgba(0,0,0,0.03)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.85rem',
+          marginBottom: '1.35rem',
+          paddingBottom: '1rem',
+          borderBottom: `2px solid ${item.color}15`,
         }}>
           <div style={{
+            width: 44,
+            height: 44,
+            borderRadius: 12,
+            background: item.color,
             display: 'flex',
             alignItems: 'center',
-            gap: '0.45rem',
-            fontSize: '0.76rem',
-            fontWeight: 700,
-            color: item.color,
-            textTransform: 'uppercase',
-            letterSpacing: '0.08em',
-            marginBottom: '0.45rem',
+            justifyContent: 'center',
+            flexShrink: 0,
+            boxShadow: `0 6px 18px ${item.color}35`,
           }}>
-            <BoxIcon size={15} color={item.color} />
-            {item.bottomBox.title}
+            <Icon size={22} color="white" strokeWidth={1.9} />
           </div>
-
-          {/* Dạng Trích dẫn (1.1) */}
-          {item.bottomBox.type === 'quote' && (
-            <div>
-              <p style={{ fontSize: '0.9rem', color: 'var(--gray-800)', fontStyle: 'italic', margin: 0, lineHeight: 1.6, fontWeight: 500 }}>
-                {item.bottomBox.quote}
-              </p>
-              <p style={{ fontSize: '0.75rem', color: item.color, fontWeight: 600, marginTop: '0.35rem', margin: '0.35rem 0 0' }}>
-                — {item.bottomBox.src}
-              </p>
+          <div>
+            <div style={{
+              fontSize: '0.72rem',
+              fontWeight: 700,
+              color: item.color,
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              marginBottom: '0.15rem',
+            }}>
+              Mục {item.id}
             </div>
-          )}
-
-          {/* Dạng Công thức (1.2) */}
-          {item.bottomBox.type === 'formula' && (
-            <div>
-              <div style={{
-                fontSize: '0.92rem',
-                fontWeight: 700,
-                color: '#b71c1c',
-                background: '#FFFFFF',
-                padding: '0.6rem 0.85rem',
-                borderRadius: 8,
-                border: '1.5px dashed rgba(183,28,28,0.35)',
-                textAlign: 'center',
-                lineHeight: 1.45,
-                boxShadow: '0 2px 6px rgba(0,0,0,0.04)',
-              }}>
-                {item.bottomBox.formula}
-              </div>
-              <div style={{ fontSize: '0.76rem', color: 'var(--gray-600)', fontStyle: 'italic', marginTop: '0.45rem', textAlign: 'center' }}>
-                {item.bottomBox.note}
-              </div>
-            </div>
-          )}
-
-          {/* Dạng Ví dụ thực tế (1.3) */}
-          {item.bottomBox.type === 'examples' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
-              {item.bottomBox.examples.map((ex, idx) => (
-                <div key={idx} style={{ fontSize: '0.86rem', color: 'var(--gray-700)', lineHeight: 1.55 }}>
-                  <strong style={{ color: 'var(--gray-900)' }}>• {ex.event}</strong> {ex.desc}
-                </div>
-              ))}
-            </div>
-          )}
+            <h3 style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(1.18rem, 2.2vw, 1.45rem)',
+              fontWeight: 700,
+              color: 'var(--gray-900)',
+              margin: 0,
+              lineHeight: 1.3,
+            }}>
+              {item.label}
+            </h3>
+          </div>
         </div>
+
+        {/* Danh sách ý chính */}
+        <ul style={{
+          listStyle: 'none',
+          padding: 0,
+          margin: '0 0 1.5rem 0',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.85rem',
+        }}>
+          {item.items.map((pt, i) => (
+            <li
+              key={i}
+              style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '0.6rem',
+                fontSize: '0.92rem',
+                color: 'var(--gray-700)',
+                lineHeight: 1.6,
+              }}
+            >
+              <span style={{
+                width: 7,
+                height: 7,
+                borderRadius: '50%',
+                background: item.color,
+                marginTop: '0.55rem',
+                flexShrink: 0,
+              }} />
+              <div>
+                <strong style={{ color: 'var(--gray-900)', fontWeight: 700 }}>
+                  {pt.highlight}{' '}
+                </strong>
+                <span>{pt.text}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Khối điểm nhấn dưới cùng (Quote / Công thức / Ví dụ) */}
+      <div style={{
+        background: item.bg,
+        border: `1.5px solid ${item.border}`,
+        borderRadius: 'var(--radius-lg)',
+        padding: '1.25rem 1.4rem',
+        marginTop: 'auto',
+      }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.45rem',
+          fontSize: '0.76rem',
+          fontWeight: 700,
+          color: item.color,
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+          marginBottom: '0.55rem',
+        }}>
+          <BoxIcon size={15} color={item.color} />
+          {item.bottomBox.title}
+        </div>
+
+        {/* Dạng Trích dẫn (1.1) */}
+        {item.bottomBox.type === 'quote' && (
+          <div>
+            <p style={{ fontSize: '0.92rem', color: 'var(--gray-800)', fontStyle: 'italic', margin: 0, lineHeight: 1.6, fontWeight: 500 }}>
+              {item.bottomBox.quote}
+            </p>
+            <p style={{ fontSize: '0.76rem', color: item.color, fontWeight: 600, marginTop: '0.4rem', margin: '0.4rem 0 0' }}>
+              — {item.bottomBox.src}
+            </p>
+          </div>
+        )}
+
+        {/* Dạng Công thức (1.2) - ĐÃ XÓA DÒNG MỐC SON LỊCH SỬ */}
+        {item.bottomBox.type === 'formula' && (
+          <div>
+            <div style={{
+              fontSize: '0.96rem',
+              fontWeight: 700,
+              color: '#b71c1c',
+              background: '#FFFFFF',
+              padding: '0.75rem 1rem',
+              borderRadius: 8,
+              border: '1.5px dashed rgba(183,28,28,0.35)',
+              textAlign: 'center',
+              lineHeight: 1.5,
+              boxShadow: '0 2px 6px rgba(0,0,0,0.04)',
+            }}>
+              {item.bottomBox.formula}
+            </div>
+          </div>
+        )}
+
+        {/* Dạng Ví dụ thực tế (1.3) */}
+        {item.bottomBox.type === 'examples' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+            {item.bottomBox.examples.map((ex, exIdx) => (
+              <div key={exIdx} style={{ fontSize: '0.84rem', lineHeight: 1.55 }}>
+                <span style={{ fontWeight: 700, color: 'var(--gray-900)' }}>{ex.event} </span>
+                <span style={{ color: 'var(--gray-700)' }}>{ex.desc}</span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </motion.div>
   );
@@ -400,7 +481,7 @@ export default function VaiTroSection() {
           style={{ marginBottom: '3.5rem', textAlign: 'center' }}
         >
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-            <span className="section-label">Phần 1 · Phúc</span>
+            <span className="section-label">Phần 1</span>
             <span style={{ color: 'var(--gray-400)', fontSize: '0.75rem' }}>•</span>
             <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--red-deep)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
               Tính Tất Yếu & Sứ Mệnh Lịch Sử
@@ -415,10 +496,24 @@ export default function VaiTroSection() {
           </p>
         </motion.div>
 
-        {/* ── 3 Hàng Ngang Trực Quan (Horizontal Rows) ── */}
-        <div>
+        {/* ── Các Thẻ Riêng Biệt Toàn Bộ Hàng Ngang (Không chia cột) ── */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '3.5rem' }}>
           {POINTS.map((item, i) => (
-            <HorizontalPointCard key={i} item={item} index={i} onImageClick={setModalImage} />
+            <div
+              key={i}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '2rem',
+                width: '100%',
+              }}
+            >
+              {/* Thẻ Nội Dung Toàn Bộ Hàng Ngang */}
+              <ContentCard item={item} index={i} />
+
+              {/* Thẻ Hình Ảnh Riêng Chiếm Toàn Bộ Hàng Ngang */}
+              <ImageCard item={item} index={i} onImageClick={setModalImage} />
+            </div>
           ))}
         </div>
 

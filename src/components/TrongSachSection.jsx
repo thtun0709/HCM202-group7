@@ -264,7 +264,7 @@ export default function TrongSachSection() {
           transition={{ duration: 0.6 }}
           style={{ textAlign: 'center', marginBottom: '3rem' }}
         >
-          <span className="section-label">Phần 2 · Thuận</span>
+          <span className="section-label">Phần 2</span>
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', color: 'var(--red-deep)', marginTop: '0.5rem' }}>
             Đảng Trong Sạch, Vững Mạnh
           </h2>

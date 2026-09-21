@@ -166,7 +166,7 @@ export default function GenZSection() {
           style={{ textAlign: 'center', marginBottom: '3.5rem' }}
         >
           <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gold)' }}>
-            Phần 3 · Tùng
+            Phần 3
           </span>
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', color: '#FFFFFF', marginTop: '0.5rem' }}>
             Đảng &{' '}
