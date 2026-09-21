@@ -126,7 +126,7 @@ export default function VaiTroSection() {
           transition={{ duration: 0.6 }}
           style={{ marginBottom: '3.5rem' }}
         >
-          <span className="section-label">Phần 1 · Phúc</span>
+          <span className="section-label">Phần 1</span>
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', color: 'var(--red-deep)', marginTop: '0.5rem' }}>
             Tính Tất Yếu & Vai Trò Lãnh Đạo Của Đảng
           </h2>
