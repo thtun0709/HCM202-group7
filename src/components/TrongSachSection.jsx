@@ -1,6 +1,18 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, BookOpenCheck, Users2, Gavel, CheckCircle2, Sparkles } from 'lucide-react';
+import {
+  ShieldCheck,
+  BookOpenCheck,
+  Users2,
+  Gavel,
+  CheckCircle2,
+  Sparkles,
+  ExternalLink,
+  X,
+  Image as ImageIcon,
+} from 'lucide-react';
+import chongGiacNoiXamImg from '../assets/chống giac ngoai xâm.jpg';
+import baoYagiImg from '../assets/bão yagi.jpg';
 
 /* Phần 2: Đảng trong sạch, vững mạnh */
 
@@ -65,8 +77,28 @@ const PRINCIPLES = [
     title: 'Minh Chứng Thực Tiễn Hiện Nay',
     subtitle: 'Đảng hành động, nhân dân đặt trọn niềm tin',
     keyPoints: [
-      'Chống "giặc nội xâm": Đẩy mạnh phòng chống tham nhũng, tiêu cực với phương châm "không có vùng cấm, không có ngoại lệ" — xử lý nghiêm minh cán bộ sai phạm, kể cả cấp cao.',
-      'Đảng viên đi trước, làng nước theo sau: Tiên phong ở tuyến đầu trong đại dịch COVID-19 và các đợt thiên tai, bão lũ lớn (như bão Yagi 2024) để cứu trợ, giúp dân ổn định đời sống.',
+      {
+        text: 'Chống "giặc nội xâm": Đẩy mạnh phòng chống tham nhũng, tiêu cực với phương châm "không có vùng cấm, không có ngoại lệ" — xử lý nghiêm minh cán bộ sai phạm, kể cả cấp cao.',
+        modal: {
+          title: 'Phòng, Chống Tham Nhũng, Tiêu Cực — Không Có Vùng Cấm',
+          badge: 'Minh Chứng 01',
+          image: chongGiacNoiXamImg,
+          sourceName: 'Báo Dân Trí',
+          articleUrl: 'https://dantri.com.vn/thoi-su/174-can-bo-dien-trung-uong-quan-ly-bi-ky-luat-trong-nhiem-ky-20251211125840229.htm',
+          desc: 'Những năm gần đây, cuộc đấu tranh phòng, chống tham nhũng, tiêu cực được Đảng ta triển khai quyết liệt, bài bản, đi vào chiều sâu với tinh thần "không có vùng cấm, không có ngoại lệ, bất kể người đó là ai". Đã có 174 cán bộ diện Trung ương quản lý bị thi hành kỷ luật hoặc truy cứu trách nhiệm trong nhiệm kỳ — minh chứng rõ nét cho quyết tâm chính trị làm trong sạch nội bộ Đảng, củng cố vững chắc niềm tin của nhân dân.',
+        },
+      },
+      {
+        text: 'Đảng viên đi trước, làng nước theo sau: Tiên phong ở tuyến đầu trong đại dịch COVID-19 và các đợt thiên tai, bão lũ lớn (như bão Yagi 2024) để cứu trợ, giúp dân ổn định đời sống.',
+        modal: {
+          title: 'Đảng Viên Đi Trước, Làng Nước Theo Sau: Xông Pha Nơi Tuyến Đầu',
+          badge: 'Minh Chứng 02',
+          image: baoYagiImg,
+          sourceName: 'Báo Cần Thơ',
+          articleUrl: 'https://baocantho.com.vn/phat-huy-vai-tro-tien-phong-guong-mau-cua-dang-vien-a137922.html',
+          desc: 'Trong đại dịch COVID-19 và các đợt thiên tai, bão lũ lịch sử (điển hình như cơn bão số 3 - Yagi năm 2024), hàng vạn cán bộ, đảng viên đã có mặt ngay ở tuyến đầu, xông pha vào những nơi nguy hiểm nhất để cứu nạn, cứu trợ, hỗ trợ người dân dựng lại nhà cửa và khôi phục cuộc sống. Tinh thần gương mẫu, tận tụy ấy khẳng định mối gắn bó máu thịt giữa Đảng với nhân dân.',
+        },
+      },
     ],
     detail: 'Thực tiễn chứng minh: Cuộc chiến phòng chống tham nhũng, tiêu cực không làm chậm bước phát triển mà củng cố vững chắc niềm tin của nhân dân và thế hệ trẻ vào sự trong sạch, kiên cường của Đảng.',
   },
@@ -195,11 +227,31 @@ function PrincipleSelectorCard({ item, isActive, onClick }) {
 export default function TrongSachSection() {
   /* Luôn mở sẵn thẻ 1 (index 0) theo yêu cầu */
   const [activeIndex, setActiveIndex] = useState(0);
+  const [selectedModal, setSelectedModal] = useState(null);
   const headRef = useRef(null);
   const headInView = useInView(headRef, { once: true });
 
   const activeItem = PRINCIPLES[activeIndex];
   const ActiveIcon = activeItem.icon;
+
+  /* Xử lý phím Escape để đóng modal & khóa scroll khi mở modal */
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setSelectedModal(null);
+      }
+    };
+    if (selectedModal) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedModal]);
 
   return (
     <section id="trong-sach" style={{ background: 'var(--gray-50)', padding: '6rem 0' }}>
@@ -384,41 +436,87 @@ export default function TrongSachSection() {
                 </h4>
               </div>
 
-              {/* Danh sách các ý chính hiển thị dạng lưới 2 cột thoáng đãng */}
+              {/* Danh sách các ý chính hiển thị dạng lưới */}
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: activeItem.keyPoints.length > 4 ? 'repeat(auto-fit, minmax(320px, 1fr))' : '1fr',
                 gap: '0.85rem',
               }}>
-                {activeItem.keyPoints.map((point, i) => {
-                  const isWarning = point.includes('⚠️');
+                {activeItem.keyPoints.map((pointData, i) => {
+                  const text = typeof pointData === 'string' ? pointData : pointData.text;
+                  const modalData = typeof pointData === 'object' ? pointData.modal : null;
+                  const isWarning = typeof text === 'string' && text.includes('⚠️');
+
                   return (
                     <div
                       key={i}
+                      onClick={() => modalData && setSelectedModal(modalData)}
                       style={{
-                        background: isWarning ? 'rgba(230,81,0,0.06)' : 'var(--gray-50)',
-                        border: isWarning ? '1px solid rgba(230,81,0,0.25)' : '1px solid var(--gray-200)',
+                        background: isWarning ? 'rgba(230,81,0,0.06)' : modalData ? '#ffffff' : 'var(--gray-50)',
+                        border: isWarning
+                          ? '1px solid rgba(230,81,0,0.25)'
+                          : modalData
+                            ? `1.5px solid ${activeItem.color}40`
+                            : '1px solid var(--gray-200)',
                         borderRadius: 'var(--radius-md)',
                         padding: activeItem.keyPoints.length <= 2 ? '1.25rem 1.4rem' : '0.9rem 1.15rem',
                         display: 'flex',
                         alignItems: 'flex-start',
-                        gap: '0.75rem',
-                        transition: 'transform 0.2s ease, border-color 0.2s ease',
+                        gap: '0.85rem',
+                        cursor: modalData ? 'pointer' : 'default',
+                        boxShadow: modalData ? '0 4px 14px rgba(0,0,0,0.05)' : 'none',
+                        transition: 'all 0.22s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        if (modalData) {
+                          e.currentTarget.style.borderColor = activeItem.color;
+                          e.currentTarget.style.transform = 'translateY(-2px)';
+                          e.currentTarget.style.boxShadow = `0 8px 24px ${activeItem.color}22`;
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (modalData) {
+                          e.currentTarget.style.borderColor = `${activeItem.color}40`;
+                          e.currentTarget.style.transform = 'translateY(0)';
+                          e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,0,0,0.05)';
+                        }
                       }}
                     >
                       <CheckCircle2
                         size={18}
                         color={isWarning ? '#e65100' : activeItem.color}
-                        style={{ flexShrink: 0, marginTop: 2 }}
+                        style={{ flexShrink: 0, marginTop: 3 }}
                       />
-                      <span style={{
-                        fontSize: '0.88rem',
-                        color: isWarning ? '#b71c1c' : 'var(--gray-700)',
-                        lineHeight: 1.6,
-                        fontWeight: isWarning ? 600 : 400,
-                      }}>
-                        {point}
-                      </span>
+                      <div style={{ flex: 1 }}>
+                        <div style={{
+                          fontSize: '0.88rem',
+                          color: isWarning ? '#b71c1c' : 'var(--gray-800)',
+                          lineHeight: 1.6,
+                          fontWeight: isWarning ? 600 : 400,
+                        }}>
+                          {text}
+                        </div>
+
+                        {modalData && (
+                          <div style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.45rem',
+                            marginTop: '0.65rem',
+                            fontSize: '0.78rem',
+                            fontWeight: 600,
+                            color: activeItem.color,
+                            background: `${activeItem.color}10`,
+                            padding: '0.25rem 0.7rem',
+                            borderRadius: '100px',
+                            border: `1px solid ${activeItem.color}25`,
+                          }}>
+                            <ImageIcon size={13} />
+                            <span>Bấm xem hình ảnh tư liệu & bài báo</span>
+                            <ExternalLink size={12} />
+                          </div>
+                        )}
+                      </div>
                     </div>
                   );
                 })}
@@ -466,6 +564,233 @@ export default function TrongSachSection() {
         </AnimatePresence>
         </div>
       </div>
+
+      {/* ── Modal Popup Chi Tiết Tư Liệu Thực Tiễn ── */}
+      <AnimatePresence>
+        {selectedModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setSelectedModal(null)}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 9999,
+              background: 'rgba(10, 15, 25, 0.72)',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '1.25rem',
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.94, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.94, y: 20 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                background: '#FFFFFF',
+                borderRadius: '1.25rem',
+                maxWidth: '680px',
+                width: '100%',
+                maxHeight: '90vh',
+                display: 'flex',
+                flexDirection: 'column',
+                overflow: 'hidden',
+                boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.4)',
+                border: '1px solid rgba(255,255,255,0.2)',
+              }}
+            >
+              {/* Modal Header */}
+              <div style={{
+                padding: '1.2rem 1.5rem',
+                borderBottom: '1px solid var(--gray-100)',
+                display: 'flex',
+                alignItems: 'flex-start',
+                justifyContent: 'space-between',
+                gap: '1rem',
+                background: 'var(--gray-50)',
+              }}>
+                <div>
+                  <span style={{
+                    fontSize: '0.72rem',
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.08em',
+                    color: '#1b5e20',
+                    background: '#e8f5e9',
+                    padding: '0.2rem 0.6rem',
+                    borderRadius: '100px',
+                    display: 'inline-block',
+                    marginBottom: '0.35rem',
+                  }}>
+                    {selectedModal.badge || 'Tư Liệu Thực Tiễn'}
+                  </span>
+                  <h3 style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '1.15rem',
+                    fontWeight: 700,
+                    color: 'var(--gray-900)',
+                    margin: 0,
+                    lineHeight: 1.35,
+                  }}>
+                    {selectedModal.title}
+                  </h3>
+                </div>
+
+                <button
+                  onClick={() => setSelectedModal(null)}
+                  type="button"
+                  aria-label="Đóng"
+                  style={{
+                    background: '#ffffff',
+                    border: '1px solid var(--gray-200)',
+                    borderRadius: '50%',
+                    width: 36,
+                    height: 36,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    color: 'var(--gray-600)',
+                    flexShrink: 0,
+                    transition: 'all 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'var(--gray-100)';
+                    e.currentTarget.style.color = 'var(--gray-900)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#ffffff';
+                    e.currentTarget.style.color = 'var(--gray-600)';
+                  }}
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* Modal Body: Hình ảnh & Description */}
+              <div style={{
+                padding: '1.5rem',
+                overflowY: 'auto',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1.25rem',
+              }}>
+                {/* Khung hình ảnh */}
+                <div style={{
+                  borderRadius: '0.85rem',
+                  overflow: 'hidden',
+                  background: '#0a0f1d',
+                  border: '1px solid var(--gray-200)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  maxHeight: '380px',
+                }}>
+                  <img
+                    src={selectedModal.image}
+                    alt={selectedModal.title}
+                    style={{
+                      width: '100%',
+                      maxHeight: '380px',
+                      objectFit: 'contain',
+                      display: 'block',
+                    }}
+                  />
+                </div>
+
+                {/* Description dưới hình ảnh */}
+                <div style={{
+                  background: '#f8fafc',
+                  borderLeft: '4px solid #1b5e20',
+                  borderRadius: '0 0.65rem 0.65rem 0',
+                  padding: '1rem 1.25rem',
+                }}>
+                  <p style={{
+                    fontSize: '0.92rem',
+                    lineHeight: 1.7,
+                    color: 'var(--gray-700)',
+                    margin: 0,
+                  }}>
+                    {selectedModal.desc}
+                  </p>
+                </div>
+              </div>
+
+              {/* Modal Footer: Nguồn & Nút mở link bài báo */}
+              <div style={{
+                padding: '1rem 1.5rem',
+                borderTop: '1px solid var(--gray-100)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '1rem',
+                background: 'var(--gray-50)',
+              }}>
+                <div style={{ fontSize: '0.82rem', color: 'var(--gray-500)' }}>
+                  Nguồn tham khảo: <strong style={{ color: 'var(--gray-800)' }}>{selectedModal.sourceName || 'Báo điện tử'}</strong>
+                </div>
+
+                <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+                  <button
+                    onClick={() => setSelectedModal(null)}
+                    type="button"
+                    style={{
+                      padding: '0.5rem 1rem',
+                      borderRadius: '0.5rem',
+                      border: '1px solid var(--gray-300)',
+                      background: '#ffffff',
+                      color: 'var(--gray-700)',
+                      fontSize: '0.85rem',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Đóng
+                  </button>
+                  <a
+                    href={selectedModal.articleUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      padding: '0.55rem 1.2rem',
+                      borderRadius: '0.5rem',
+                      background: 'linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%)',
+                      color: '#ffffff',
+                      textDecoration: 'none',
+                      fontSize: '0.85rem',
+                      fontWeight: 600,
+                      boxShadow: '0 4px 12px rgba(27, 94, 32, 0.25)',
+                      transition: 'all 0.2s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-1px)';
+                      e.currentTarget.style.boxShadow = '0 6px 18px rgba(27, 94, 32, 0.35)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(27, 94, 32, 0.25)';
+                    }}
+                  >
+                    <span>Xem bài báo gốc</span>
+                    <ExternalLink size={15} />
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
