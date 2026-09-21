@@ -10,14 +10,15 @@ const PRINCIPLES = [
     number: '01',
     color: '#1a237e',
     gradient: 'linear-gradient(135deg, #1a237e 0%, #283593 100%)',
-    title: 'Bản Chất "Đảng Là Đạo Đức, Là Văn Minh"',
+    title: 'Bản Chất và yêu cầu xây dựng Đảng',
     subtitle: 'Mục đích tối thượng & Yêu cầu xây dựng Đảng',
+    pointsTitle: 'Yêu cầu xây dựng "Đảng văn minh"',
     keyPoints: [
-      'Mục đích tối thượng: Giải phóng dân tộc, giải phóng giai cấp, giải phóng xã hội và con người',
-      'Vì dân phục vụ: Đảng không có lợi ích riêng tư ngoài lợi ích tối cao của toàn thể dân tộc',
-      'Đạo đức cách mạng: Đảng viên phải thấm nhuần cần, kiệm, liêm, chính, chí công vô tư, suốt đời vì dân',
-      'Đảng văn minh: Tiêu biểu cho trí tuệ và lương tâm dân tộc; hoạt động nghiêm túc trong khuôn khổ Hiến pháp & pháp luật',
-      '⚠️ Cảnh báo lịch sử: Đảng xa rời đạo đức và văn minh sẽ đánh mất quyền lãnh đạo và thành quả cách mạng sẽ tiêu tan',
+      'Tiêu biểu cho lương tâm, trí tuệ, danh dự của dân tộc.',
+      'Luôn trong sạch, vững mạnh; khi cầm quyền càng phải chống tiêu cực.',
+      'Hoạt động trong khuôn khổ Hiến pháp và pháp luật, không đứng trên dân tộc.',
+      'Đảng viên tiên phong, gương mẫu.',
+      'Quan hệ quốc tế trong sáng, vì hòa bình, hữu nghị.',
     ],
     detail: '"Đảng ta là đạo đức, là văn minh" (Lễ kỷ niệm 30 năm thành lập Đảng, 1960). Người nhấn mạnh: khi cầm quyền, Đảng càng phải đề cao tính văn minh, tiền phong gương mẫu và chống lại mọi biểu hiện suy thoái, biến chất.',
   },
@@ -64,10 +65,8 @@ const PRINCIPLES = [
     title: 'Minh Chứng Thực Tiễn Hiện Nay',
     subtitle: 'Đảng hành động, nhân dân đặt trọn niềm tin',
     keyPoints: [
-      'Xông pha tuyến đầu: Đảng viên tiên phong trong tuyến đầu phòng chống dịch bệnh và khắc phục bão lũ lịch sử (bão Yagi 2024)',
-      'Đấu tranh chống tiêu cực: Đẩy mạnh phòng chống tham nhũng với nguyên tắc "không có vùng cấm, không có ngoại lệ"',
-      'Chỉnh đốn nghiêm minh: Kiên quyết xử lý kỷ luật nghiêm các cán bộ suy thoái tư tưởng, kể cả cán bộ cấp cao',
-      'Củng cố niềm tin: Nhân dân và thế hệ trẻ ngày càng tin tưởng tuyệt đối vào sự lãnh đạo trong sạch, vững mạnh của Đảng',
+      'Chống "giặc nội xâm": Đẩy mạnh phòng chống tham nhũng, tiêu cực với phương châm "không có vùng cấm, không có ngoại lệ" — xử lý nghiêm minh cán bộ sai phạm, kể cả cấp cao.',
+      'Đảng viên đi trước, làng nước theo sau: Tiên phong ở tuyến đầu trong đại dịch COVID-19 và các đợt thiên tai, bão lũ lớn (như bão Yagi 2024) để cứu trợ, giúp dân ổn định đời sống.',
     ],
     detail: 'Thực tiễn chứng minh: Cuộc chiến phòng chống tham nhũng, tiêu cực không làm chậm bước phát triển mà củng cố vững chắc niềm tin của nhân dân và thế hệ trẻ vào sự trong sạch, kiên cường của Đảng.',
   },
@@ -242,26 +241,35 @@ export default function TrongSachSection() {
         </div>
 
         {/* ── Card lớn toàn chiều ngang hiển thị chi tiết (Chiều ngang bằng cả 4 card trên) ── */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeIndex}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.35, ease: 'easeOut' }}
-            style={{
-              background: '#FFFFFF',
-              borderRadius: 'var(--radius-xl)',
-              border: `1.5px solid ${activeItem.color}30`,
-              boxShadow: '0 20px 60px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)',
-              overflow: 'hidden',
-              position: 'relative',
-            }}
-          >
-            {/* Dải màu gradient định danh ở đỉnh card */}
-            <div style={{ height: 5, background: activeItem.gradient, width: '100%' }} />
+        <div style={{ minHeight: '660px', position: 'relative' }}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeIndex}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.28, ease: 'easeOut' }}
+              style={{
+                background: '#FFFFFF',
+                borderRadius: 'var(--radius-xl)',
+                border: `1.5px solid ${activeItem.color}30`,
+                boxShadow: '0 20px 60px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)',
+                overflow: 'hidden',
+                position: 'relative',
+                minHeight: '660px',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              {/* Dải màu gradient định danh ở đỉnh card */}
+              <div style={{ height: 5, background: activeItem.gradient, width: '100%', flexShrink: 0 }} />
 
-            <div style={{ padding: 'clamp(1.5rem, 3vw, 2.5rem)' }}>
+              <div style={{
+                padding: 'clamp(1.5rem, 3vw, 2.5rem)',
+                display: 'flex',
+                flexDirection: 'column',
+                flex: 1,
+              }}>
               {/* Header của Detail Card */}
               <div style={{
                 display: 'flex',
@@ -372,7 +380,7 @@ export default function TrongSachSection() {
                   letterSpacing: '0.02em',
                   margin: 0,
                 }}>
-                  Các Luận Điểm & Nguyên Tắc Trọng Tâm
+                  {activeItem.pointsTitle || 'Các Luận Điểm & Nguyên Tắc Trọng Tâm'}
                 </h4>
               </div>
 
@@ -391,7 +399,7 @@ export default function TrongSachSection() {
                         background: isWarning ? 'rgba(230,81,0,0.06)' : 'var(--gray-50)',
                         border: isWarning ? '1px solid rgba(230,81,0,0.25)' : '1px solid var(--gray-200)',
                         borderRadius: 'var(--radius-md)',
-                        padding: '0.9rem 1.15rem',
+                        padding: activeItem.keyPoints.length <= 2 ? '1.25rem 1.4rem' : '0.9rem 1.15rem',
                         display: 'flex',
                         alignItems: 'flex-start',
                         gap: '0.75rem',
@@ -418,7 +426,7 @@ export default function TrongSachSection() {
 
               {/* Thanh chuyển nhanh nội dung ở cuối card */}
               <div style={{
-                marginTop: '2rem',
+                marginTop: 'auto',
                 paddingTop: '1.25rem',
                 borderTop: '1px solid var(--gray-100)',
                 display: 'flex',
@@ -456,6 +464,7 @@ export default function TrongSachSection() {
             </div>
           </motion.div>
         </AnimatePresence>
+        </div>
       </div>
     </section>
   );
