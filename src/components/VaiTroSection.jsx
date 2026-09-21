@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { Anchor, Star, Compass, X, ZoomIn, Quote, Sparkles, CheckCircle2, Image as ImageIcon } from 'lucide-react';
+import { Anchor, Star, Compass, X, Quote, Sparkles, CheckCircle2 } from 'lucide-react';
 import duongCachMenhImg from '../assets/duong_cach_menh.png';
 import thanhLapDangImg from '../assets/thanh_lap_dang.png';
 import suaDoiLoiLamViecImg from '../assets/sua_doi_loi_lam_viec.jpg';
@@ -120,167 +120,8 @@ const POINTS = [
   },
 ];
 
-/* ── Thẻ Riêng Cho Hình Ảnh (Chiếm toàn bộ hàng ngang, hiển thị to, rõ nét) ── */
-function ImageCard({ item, index, onImageClick }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-40px' });
-
-  return (
-    <motion.div
-      ref={ref}
-      className="dedicated-image-card"
-      initial={{ opacity: 0, y: 30 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay: index * 0.1 }}
-      whileHover={{ y: -3, boxShadow: '0 16px 40px rgba(0,0,0,0.08)' }}
-      style={{
-        background: '#FFFFFF',
-        border: `1.5px solid ${item.border}`,
-        borderRadius: 'var(--radius-xl)',
-        padding: 'clamp(1.25rem, 2.5vw, 2rem)',
-        boxShadow: 'var(--shadow-card)',
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        transition: 'all 0.3s ease',
-      }}
-    >
-      {/* Header thẻ ảnh */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginBottom: '1.25rem',
-        paddingBottom: '0.85rem',
-        borderBottom: `1.5px solid ${item.color}18`,
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <div style={{
-            width: 40,
-            height: 40,
-            borderRadius: 10,
-            background: `${item.color}15`,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: `0 3px 10px ${item.color}25`,
-          }}>
-            <ImageIcon size={20} color={item.color} />
-          </div>
-          <div>
-            <span style={{ fontSize: '0.72rem', fontWeight: 700, color: item.color, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-              Tư Liệu Lịch Sử · Mục {item.id}
-            </span>
-            <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem', fontWeight: 700, color: 'var(--gray-900)', margin: 0 }}>
-              {item.imageTitle}
-            </h4>
-          </div>
-        </div>
-
-        <button
-          onClick={() => onImageClick(item)}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.45rem',
-            padding: '0.45rem 1rem',
-            borderRadius: 100,
-            background: `${item.color}10`,
-            border: `1.5px solid ${item.color}35`,
-            color: item.color,
-            fontSize: '0.78rem',
-            fontWeight: 700,
-            cursor: 'pointer',
-            transition: 'all 0.2s',
-          }}
-          title="Nhấp để xem ảnh phóng to toàn màn hình"
-        >
-          <ZoomIn size={15} />
-          <span>Phóng to toàn màn hình</span>
-        </button>
-      </div>
-
-      {/* Khung hiển thị ảnh SÁNG RÕ, TO TOÀN BỘ, HOÀN TOÀN KHÔNG CÒN VIỀN ĐEN */}
-      <div
-        onClick={() => onImageClick(item)}
-        title="Nhấp để xem ảnh phóng to toàn màn hình"
-        style={{
-          position: 'relative',
-          width: '100%',
-          borderRadius: 'var(--radius-lg)',
-          overflow: 'hidden',
-          cursor: 'pointer',
-          background: 'transparent',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '0.5rem 0',
-        }}
-      >
-        <img
-          src={item.image}
-          alt={item.imageTitle}
-          style={{
-            width: '100%',
-            maxWidth: item.id === '1.3' ? '680px' : '1080px',
-            height: 'auto',
-            maxHeight: '760px',
-            objectFit: 'contain',
-            display: 'block',
-            borderRadius: 'var(--radius-lg)',
-            boxShadow: '0 12px 36px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)',
-            border: '1px solid var(--gray-200)',
-            transition: 'transform 0.35s ease, box-shadow 0.35s ease',
-          }}
-          className="point-card-img"
-        />
-
-        {/* Nút bấm phóng to nổi ở góc ảnh (giao diện sáng trong suốt, không viền đen) */}
-        <div style={{
-          position: 'absolute',
-          bottom: 16,
-          right: 20,
-          background: 'rgba(255,255,255,0.92)',
-          backdropFilter: 'blur(8px)',
-          WebkitBackdropFilter: 'blur(8px)',
-          padding: '6px 14px',
-          borderRadius: 100,
-          fontSize: '0.75rem',
-          fontWeight: 600,
-          color: 'var(--gray-800)',
-          border: '1px solid var(--gray-300)',
-          boxShadow: '0 4px 14px rgba(0,0,0,0.15)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.45rem',
-        }}>
-          <ZoomIn size={14} color="var(--red-deep)" />
-          <span>Bấm để phóng to chi tiết</span>
-        </div>
-      </div>
-
-      {/* Chú thích chân thẻ ảnh */}
-      <div style={{
-        marginTop: '1.1rem',
-        paddingTop: '0.85rem',
-        borderTop: '1px solid var(--gray-100)',
-        fontSize: '0.86rem',
-        color: 'var(--gray-600)',
-        fontStyle: 'italic',
-        lineHeight: 1.6,
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.5rem',
-      }}>
-        <span style={{ color: item.color, fontWeight: 700, fontSize: '1rem' }}>✦</span>
-        <span>{item.imageCaption}</span>
-      </div>
-    </motion.div>
-  );
-}
-
-/* ── Thẻ Riêng Cho Nội Dung (Trình bày lý luận và minh chứng) ── */
-function ContentCard({ item, index }) {
+/* ── Thẻ Hợp Nhất Cho Từng Mục (Hình ảnh phía trên, Nội dung phân tích liền kề phía dưới) ── */
+function PointCard({ item, index, onImageClick }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-40px' });
   const Icon = item.icon;
@@ -289,33 +130,35 @@ function ContentCard({ item, index }) {
   return (
     <motion.div
       ref={ref}
-      className="dedicated-content-card"
+      className="unified-point-card"
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay: index * 0.1 + 0.05 }}
-      whileHover={{ y: -3, boxShadow: '0 16px 40px rgba(0,0,0,0.08)' }}
+      transition={{ duration: 0.55, delay: index * 0.1 }}
+      whileHover={{ y: -3, boxShadow: '0 20px 48px rgba(0,0,0,0.08)' }}
       style={{
         background: '#FFFFFF',
         border: `1.5px solid ${item.border}`,
         borderRadius: 'var(--radius-xl)',
-        padding: 'clamp(1.5rem, 2.5vw, 2.25rem)',
+        padding: 'clamp(1.25rem, 3vw, 2.25rem)',
         boxShadow: 'var(--shadow-card)',
+        width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
         transition: 'all 0.3s ease',
       }}
     >
-      <div>
-        {/* Tiêu đề & Icon */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.85rem',
-          marginBottom: '1.35rem',
-          paddingBottom: '1rem',
-          borderBottom: `2px solid ${item.color}15`,
-        }}>
+      {/* 1. Header chính của mục */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: '1rem',
+        marginBottom: '1.5rem',
+        paddingBottom: '1.25rem',
+        borderBottom: `2px solid ${item.color}18`,
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
           <div style={{
             width: 44,
             height: 44,
@@ -338,11 +181,11 @@ function ContentCard({ item, index }) {
               letterSpacing: '0.1em',
               marginBottom: '0.15rem',
             }}>
-              Mục {item.id}
+              Mục {item.id} · {item.tag}
             </div>
             <h3 style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(1.18rem, 2.2vw, 1.45rem)',
+              fontSize: 'clamp(1.2rem, 2.5vw, 1.55rem)',
               fontWeight: 700,
               color: 'var(--gray-900)',
               margin: 0,
@@ -352,7 +195,67 @@ function ContentCard({ item, index }) {
             </h3>
           </div>
         </div>
+      </div>
 
+      {/* 2. Khung hình ảnh tư liệu (Hình trước) */}
+      <div style={{ marginBottom: '1.75rem' }}>
+        <div
+          onClick={() => onImageClick(item)}
+          title="Nhấp để xem ảnh phóng to toàn màn hình"
+          style={{
+            position: 'relative',
+            width: '100%',
+            borderRadius: 'var(--radius-lg)',
+            overflow: 'hidden',
+            cursor: 'pointer',
+            background: 'transparent',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '0.5rem 0',
+          }}
+        >
+          <img
+            src={item.image}
+            alt={item.imageTitle}
+            style={{
+              width: '100%',
+              maxWidth: item.id === '1.3' ? '680px' : '1080px',
+              height: 'auto',
+              maxHeight: '740px',
+              objectFit: 'contain',
+              display: 'block',
+              borderRadius: 'var(--radius-lg)',
+              boxShadow: '0 12px 36px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.05)',
+              border: '1px solid var(--gray-200)',
+              transition: 'transform 0.35s ease, box-shadow 0.35s ease',
+            }}
+            className="point-card-img"
+          />
+        </div>
+
+        {/* Chú thích ảnh */}
+        <div style={{
+          marginTop: '0.85rem',
+          paddingTop: '0.75rem',
+          fontSize: '0.86rem',
+          color: 'var(--gray-600)',
+          fontStyle: 'italic',
+          lineHeight: 1.6,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+        }}>
+          <span style={{ color: item.color, fontWeight: 700, fontSize: '1rem' }}>✦</span>
+          <span><strong>{item.imageTitle}:</strong> {item.imageCaption}</span>
+        </div>
+      </div>
+
+      {/* 3. Phần nội dung phân tích (Nội dung sau) */}
+      <div style={{
+        borderTop: `1.5px solid ${item.color}18`,
+        paddingTop: '1.5rem',
+      }}>
         {/* Danh sách ý chính */}
         <ul style={{
           listStyle: 'none',
@@ -391,74 +294,73 @@ function ContentCard({ item, index }) {
             </li>
           ))}
         </ul>
-      </div>
 
-      {/* Khối điểm nhấn dưới cùng (Quote / Công thức / Ví dụ) */}
-      <div style={{
-        background: item.bg,
-        border: `1.5px solid ${item.border}`,
-        borderRadius: 'var(--radius-lg)',
-        padding: '1.25rem 1.4rem',
-        marginTop: 'auto',
-      }}>
+        {/* Khối điểm nhấn dưới cùng (Quote / Công thức / Ví dụ) */}
         <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.45rem',
-          fontSize: '0.76rem',
-          fontWeight: 700,
-          color: item.color,
-          textTransform: 'uppercase',
-          letterSpacing: '0.08em',
-          marginBottom: '0.55rem',
+          background: item.bg,
+          border: `1.5px solid ${item.border}`,
+          borderRadius: 'var(--radius-lg)',
+          padding: '1.25rem 1.4rem',
         }}>
-          <BoxIcon size={15} color={item.color} />
-          {item.bottomBox.title}
-        </div>
-
-        {/* Dạng Trích dẫn (1.1) */}
-        {item.bottomBox.type === 'quote' && (
-          <div>
-            <p style={{ fontSize: '0.92rem', color: 'var(--gray-800)', fontStyle: 'italic', margin: 0, lineHeight: 1.6, fontWeight: 500 }}>
-              {item.bottomBox.quote}
-            </p>
-            <p style={{ fontSize: '0.76rem', color: item.color, fontWeight: 600, marginTop: '0.4rem', margin: '0.4rem 0 0' }}>
-              — {item.bottomBox.src}
-            </p>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.45rem',
+            fontSize: '0.76rem',
+            fontWeight: 700,
+            color: item.color,
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+            marginBottom: '0.55rem',
+          }}>
+            <BoxIcon size={15} color={item.color} />
+            {item.bottomBox.title}
           </div>
-        )}
 
-        {/* Dạng Công thức (1.2) - ĐÃ XÓA DÒNG MỐC SON LỊCH SỬ */}
-        {item.bottomBox.type === 'formula' && (
-          <div>
-            <div style={{
-              fontSize: '0.96rem',
-              fontWeight: 700,
-              color: '#b71c1c',
-              background: '#FFFFFF',
-              padding: '0.75rem 1rem',
-              borderRadius: 8,
-              border: '1.5px dashed rgba(183,28,28,0.35)',
-              textAlign: 'center',
-              lineHeight: 1.5,
-              boxShadow: '0 2px 6px rgba(0,0,0,0.04)',
-            }}>
-              {item.bottomBox.formula}
+          {/* Dạng Trích dẫn (1.1) */}
+          {item.bottomBox.type === 'quote' && (
+            <div>
+              <p style={{ fontSize: '0.92rem', color: 'var(--gray-800)', fontStyle: 'italic', margin: 0, lineHeight: 1.6, fontWeight: 500 }}>
+                {item.bottomBox.quote}
+              </p>
+              <p style={{ fontSize: '0.76rem', color: item.color, fontWeight: 600, marginTop: '0.4rem', margin: '0.4rem 0 0' }}>
+                — {item.bottomBox.src}
+              </p>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Dạng Ví dụ thực tế (1.3) */}
-        {item.bottomBox.type === 'examples' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
-            {item.bottomBox.examples.map((ex, exIdx) => (
-              <div key={exIdx} style={{ fontSize: '0.84rem', lineHeight: 1.55 }}>
-                <span style={{ fontWeight: 700, color: 'var(--gray-900)' }}>{ex.event} </span>
-                <span style={{ color: 'var(--gray-700)' }}>{ex.desc}</span>
+          {/* Dạng Công thức (1.2) */}
+          {item.bottomBox.type === 'formula' && (
+            <div>
+              <div style={{
+                fontSize: '0.96rem',
+                fontWeight: 700,
+                color: '#b71c1c',
+                background: '#FFFFFF',
+                padding: '0.75rem 1rem',
+                borderRadius: 8,
+                border: '1.5px dashed rgba(183,28,28,0.35)',
+                textAlign: 'center',
+                lineHeight: 1.5,
+                boxShadow: '0 2px 6px rgba(0,0,0,0.04)',
+              }}>
+                {item.bottomBox.formula}
               </div>
-            ))}
-          </div>
-        )}
+            </div>
+          )}
+
+          {/* Dạng Ví dụ thực tế (1.3) */}
+          {item.bottomBox.type === 'examples' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+              {item.bottomBox.examples.map((ex, exIdx) => (
+                <div key={exIdx} style={{ fontSize: '0.84rem', lineHeight: 1.55 }}>
+                  <span style={{ fontWeight: 700, color: 'var(--gray-900)' }}>{ex.event} </span>
+                  <span style={{ color: 'var(--gray-700)' }}>{ex.desc}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </motion.div>
   );
@@ -496,24 +398,15 @@ export default function VaiTroSection() {
           </p>
         </motion.div>
 
-        {/* ── Các Thẻ Riêng Biệt Toàn Bộ Hàng Ngang (Không chia cột) ── */}
+        {/* ── Các Thẻ Hợp Nhất Toàn Bộ Hàng Ngang (Hình ảnh trước, Nội dung sau liền kề) ── */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '3.5rem' }}>
           {POINTS.map((item, i) => (
-            <div
-              key={i}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '2rem',
-                width: '100%',
-              }}
-            >
-              {/* Thẻ Nội Dung Toàn Bộ Hàng Ngang */}
-              <ContentCard item={item} index={i} />
-
-              {/* Thẻ Hình Ảnh Riêng Chiếm Toàn Bộ Hàng Ngang */}
-              <ImageCard item={item} index={i} onImageClick={setModalImage} />
-            </div>
+            <PointCard
+              key={`point-card-${item.id}`}
+              item={item}
+              index={i}
+              onImageClick={setModalImage}
+            />
           ))}
         </div>
 
