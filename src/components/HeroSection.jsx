@@ -151,7 +151,7 @@ export default function HeroSection() {
             "Đảng có vững, cách mệnh mới thành công, cũng như người cầm lái có vững thuyền mới chạy."
           </p>
           <p style={{ marginTop: '0.5rem', fontSize: '0.75rem', color: 'rgba(212,175,55,0.7)', letterSpacing: '0.08em' }}>
-            — Đường cách mệnh, 1927
+            — Đường Kách mệnh, 1927
           </p>
         </motion.div>
 
